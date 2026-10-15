@@ -5,6 +5,24 @@
 
 ---
 
+## [008] README, architecture, video script (Phase 7)
+
+**What was done:**
+- `README.md` rewritten as the project's showcase (what it demonstrates, how it works with a
+  Mermaid diagram, evals, run instructions incl. offline mode, layout, limitations) with 4
+  screenshots in `docs/images/` (captured from the running app with headless Edge over CDP).
+- `docs/architecture.md` (from the real code) and `docs/VIDEO-SCRIPT.md` (scenes, checklist,
+  interview follow-up lines).
+- Evidence viewer tabs now show the quote ("USD 298,000" vs "45 m²"), so sources are distinguishable.
+- New favicon (house + magnifier) replacing the Vite logo; mobile layout checked (no horizontal scroll).
+
+**Why:** Phase 7 of `PLAN.md` — the repo must tell the story in 30 seconds of reading.
+
+**Not done:** the video itself and the real eval table (both need valid API keys and, for the
+video, a microphone).
+
+---
+
 ## [007] Voice with GPT-Live-1 (Phase 6)
 
 **What was done:**

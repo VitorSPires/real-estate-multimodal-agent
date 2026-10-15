@@ -4,6 +4,23 @@
 > Each item says **what I decided**, **why**, and **what to check**. Full ADRs live in
 > `DECISIONS.md`; this file is the short checklist for our review session.
 
+## TL;DR — where things stand
+
+- **Phases 0–7 are built and committed**; backend 42 tests, dataset 9, evals 5, frontend builds
+  clean. The whole demo works end to end **in offline mode** (canned model answers).
+- **Nothing has run against a real model yet** — your OpenAI key is rejected and there's no
+  OpenRouter key. Everything model-facing is implemented against the SDKs' real types and tested
+  with stubs.
+- **To finish, in order:**
+  1. Put valid keys in `backend/.env` and set `LLM_PROVIDER=auto`.
+  2. `cd backend && .venv/Scripts/python -m app.ingestion ../dataset/listings` — first real run.
+     Expect to tune prompts if a model reads something differently.
+  3. `backend/.venv/Scripts/python -m evals.run` → commit `evals/results/openrouter-latest.md`,
+     update `routing.py` from its suggestion, paste the table into the README.
+  4. Click **Talk** in the app — first real voice call (see Phase 6 notes).
+  5. Record the video with `docs/VIDEO-SCRIPT.md`.
+  6. Delete `open-source/_temp/` before pushing; create the GitHub repo.
+
 ---
 
 ## ⚠️ Blockers found
@@ -111,3 +128,14 @@
   (instead of assistant-ui's own voice runtime, which expects its own adapter).
 - **No frontend unit tests** (no test runner set up in the frontend); voice logic is only typed and
   built. A Vitest suite for `useLiveSession`'s event handling would be a good follow-up.
+
+## Phase 7 — Polish
+
+- **README written for a 30-second read**, screenshots from the offline mode (the "Offline mode"
+  badge is visible in them — retake after the real run for the published version).
+- **Eval section says "Results: pending"** rather than showing offline numbers (they'd measure the
+  fixtures, not models).
+- **Screenshots captured with headless Edge over CDP** (temporary profile, nothing of yours
+  touched); the capture script stayed outside the repo.
+- **New favicon** (house + magnifier); the Vite logo looked like a template.
+- **Video not recorded** — needs keys + mic; the script is in `docs/VIDEO-SCRIPT.md`.

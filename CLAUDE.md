@@ -5,7 +5,8 @@ images, phone photos), extracts verified facts with evidence, and helps the user
 a real-time conversation. Public portfolio project for AI Engineer interviews (document
 intelligence + LLM orchestration). UI product name: **ListingLens**.
 
-The full design lives in [`docs/PLAN.md`](docs/PLAN.md). Progress lives in [`docs/ROADMAP.md`](docs/ROADMAP.md).
+The full design lives in [`docs/PLAN.md`](docs/PLAN.md); the as-built view in [`docs/architecture.md`](docs/architecture.md).
+Progress lives in [`docs/ROADMAP.md`](docs/ROADMAP.md). Decisions taken during the autonomous build: [`docs/REVIEW-NOTES.md`](docs/REVIEW-NOTES.md).
 
 ---
 

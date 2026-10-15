@@ -1,6 +1,6 @@
 # real-estate-multimodal-agent — Build Plan
 
-> Status: **Phase 0 done** — progress in [`ROADMAP.md`](ROADMAP.md). This file is the source of truth for the build.
+> Status: **Phases 0–7 built** (real-model runs and the video pending) — progress in [`ROADMAP.md`](ROADMAP.md). This file is the source of truth for the build.
 > Update it in place as decisions change; don't append a log.
 
 ---

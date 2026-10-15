@@ -32,8 +32,9 @@
 - ✅ `/api/live/session` + `/api/live/tools`, `useLiveSession`, call controls in the composer
 - 📋 First real call (needs a valid OpenAI key + microphone — see `REVIEW-NOTES.md`)
 
-## Phase 7 — Polish + video 🔜
-- 🔜 README story, architecture doc, eval table, recorded demo video
+## Phase 7 — Polish + video ✅ (video pending)
+- ✅ README with screenshots, `architecture.md`, `VIDEO-SCRIPT.md`
+- 🔜 With valid keys: real ingestion run → eval run → update routing + README table → first voice call → record the video
 
 ## Future 💡
 - 💡 CLIP + small PyTorch head as a local region classifier (cheaper routing)

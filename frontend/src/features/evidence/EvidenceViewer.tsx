@@ -63,6 +63,7 @@ export function EvidenceViewer({ request, onClose }: Props) {
                         index === selected ? 'border-primary bg-accent' : 'text-muted-foreground',
                       )}
                     >
+                      {source.quote ? `“${truncate(source.quote, 28)}” · ` : ''}
                       {source.document}
                       {source.page ? ` p.${source.page}` : ''}
                     </button>
@@ -109,6 +110,8 @@ function Source({ evidence }: { evidence: Evidence }) {
     </div>
   )
 }
+
+const truncate = (text: string, max: number) => (text.length > max ? `${text.slice(0, max - 1)}…` : text)
 
 function formatValue(value: unknown): string {
   if (typeof value === 'number') return value.toLocaleString('en-US')
