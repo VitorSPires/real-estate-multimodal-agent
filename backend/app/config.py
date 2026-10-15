@@ -21,6 +21,7 @@ class Settings(BaseSettings):
     # auto = OpenRouter if its key is set, else OpenAI, else the offline fake (canned answers).
     llm_provider: Literal["auto", "openrouter", "openai", "fake"] = "auto"
     fake_responses: Path = BACKEND_DIR / "app" / "ingestion" / "fakes" / "dataset_responses.json"
+    chat_model: str = ""  # empty = provider default (see app/assistant/chat.py)
 
     @property
     def resolved_llm_provider(self) -> str:

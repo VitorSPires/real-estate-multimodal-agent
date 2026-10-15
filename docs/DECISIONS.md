@@ -52,6 +52,33 @@ data (Phase 3), not by preference.
 
 ---
 
+## [013] One thread for narration, typed chat and (later) voice
+
+**Context:** The user should see the pipeline narration, the conversation and the tool calls in one place.
+
+**Choice:** The frontend keeps a single timeline (ingestion runs + user/assistant entries) and
+feeds it to assistant-ui through `useExternalStoreRuntime`. A run is rendered as an assistant
+message whose *reasoning* part is the narration (open while running, collapsed after). Tool calls
+are rendered as tool-call parts; the app reacts to `show_evidence` / `filter_listings`.
+
+**Why:** assistant-ui gives the collapsible panel, tool rows and composer for free, while we keep
+full control of the state (voice transcripts can be appended to the same timeline).
+
+---
+
+## [012] Text chat: tool-calling loop over deterministic tools; rule-based offline stand-in
+
+**Context:** Text chat must use the same facts as voice and work without API keys.
+
+**Choice:** `POST /api/chat` runs a Chat Completions tool loop (max 5 rounds) over the tools in
+`app/assistant/tools.py` — the same functions the voice session calls. In offline mode a small
+rule-based agent (`app/assistant/offline.py`) calls the same tools for the demo conversation.
+
+**Why:** One set of tools = one source of truth for both modalities. The offline agent keeps the
+UI explorable and testable without keys; it's labeled and intentionally simple.
+
+---
+
 ## [011] Runs as in-process background tasks; events stored + streamed over SSE
 
 **Context:** An upload starts a ~30 s pipeline whose narration the UI must show live, and a page

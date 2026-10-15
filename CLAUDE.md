@@ -44,7 +44,8 @@ app/
 ├── api/            HTTP routers (all mounted under /api)
 ├── models.py       ORM tables · store.py: reads/writes
 ├── ingestion/      LangGraph graph (graph.py), nodes, parsing, merge, prompts/, llm.py, routing.py
-└── live/           GPT-Live session + conversation tools (Phase 6)
+├── assistant/      conversation tools, instructions, text chat loop, offline agent
+└── live/           GPT-Live session (Phase 6)
 ```
 
 ---

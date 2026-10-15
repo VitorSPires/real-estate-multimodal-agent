@@ -5,6 +5,28 @@
 
 ---
 
+## [006] Text-only UI wired to the backend (Phase 5)
+
+**What was done:**
+- Backend: conversation tools (`app/assistant/tools.py`), shared instructions, text chat tool loop
+  (`app/assistant/chat.py`), offline rule-based agent, `POST /api/chat`; 8 new tests.
+- Frontend: drop zone + "Try sample documents", live narration in the thread (collapsible),
+  listing cards with clickable facts, conflicts and amenities, evidence viewer (page render with
+  the source region highlighted), chat with tool-call rows, card highlighting and evidence opening
+  driven by tool calls, "Offline mode" badge, "Start over".
+- shadcn components added: card, badge, sheet, scroll-area, separator.
+
+**Why:** Phase 5 of `PLAN.md`. The full demo now works by typing — also the fallback for the video.
+
+**New concepts introduced:** tools driving UI side effects; one timeline for several message
+sources (decisions [012], [013]).
+- *Edited vendored component:* `components/assistant-ui/reasoning.tsx` label changed to
+  "Reading the documents" / "How I read the documents".
+- *Gotcha:* `uvicorn --reload` did not pick up a change on Windows during the build; restart the
+  server if behavior looks stale.
+
+---
+
 ## [005] API (Phase 4)
 
 **What was done:**

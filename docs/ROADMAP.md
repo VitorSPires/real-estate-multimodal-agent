@@ -25,11 +25,11 @@
 ## Phase 4 — API ✅
 - ✅ Upload + sample runs, SSE narration (replay + live), listings, evidence files, reset
 
-## Phase 5 — UI (text-only) 🔜
-- 🔜 Drop zone, narration panel, listing cards, evidence viewer, chat wired to the backend
+## Phase 5 — UI (text-only) ✅
+- ✅ Drop zone + samples, narration panel, listing cards, evidence viewer, chat with tools
 
-## Phase 6 — Voice
-- 📋 Spike against current GPT-Live docs
+## Phase 6 — Voice 🔜
+- 🔜 Spike against current GPT-Live docs
 - 📋 `/api/live/session` (SDP proxy) + `/api/live/tools`, `useLiveSession` hook, voice orb
 
 ## Phase 7 — Polish + video

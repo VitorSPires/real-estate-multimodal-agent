@@ -200,7 +200,9 @@ function ReasoningTrigger({
           active && "shimmer motion-reduce:animate-none",
         )}
       >
-        Reasoning{durationText}
+        {/* ListingLens: the only reasoning part we render is the ingestion narration. */}
+        {active ? "Reading the documents" : "How I read the documents"}
+        {durationText}
       </span>
       <ChevronDownIcon
         data-slot="reasoning-trigger-chevron"

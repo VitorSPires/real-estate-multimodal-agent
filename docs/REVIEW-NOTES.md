@@ -73,3 +73,21 @@
 - **Your local `backend/.env` has `LLM_PROVIDER=fake`** (git-ignored) because the OpenAI key is
   invalid. Switch it to `auto` after adding valid keys.
 - Uploads limited to 30 files × 20 MB; file names are reduced to their base name (no client paths).
+
+## Phase 5 — Text UI
+
+- **One set of conversation tools** (`app/assistant/tools.py`) for text chat and voice; pure
+  functions over SQLite, no model calls. → DECISIONS [012]
+- **Added a `neighborhood_price_check` tool** (not in the plan) for the demo question "is it a good
+  price for the area?" — it uses the chart from *any* brochure of the same neighborhood.
+- **Offline chat is a rule-based agent** that only knows the demo conversation (bedrooms,
+  amenities, price, compare). Labeled offline; real chat uses `claude-sonnet-5.5` (OpenRouter)
+  or `gpt-6.1-sol` (OpenAI), overridable with `CHAT_MODEL`.
+- **Cards appear when merging finishes**, not progressively per document as the plan said. The
+  narration streams live, which carries the "watch it work" moment; provisional cards would add
+  state-juggling code for little gain. Easy to add later from the `facts` events (already emitted).
+- **Narration = assistant-ui "reasoning" part**, label changed in the vendored component.
+  → DECISIONS [013]
+- **Starter suggestions disappear after the first message** (they'd be stale).
+- **Floor-plan evidence highlights the whole image**, not the BBQ symbol itself: vision readings
+  don't return coordinates. Possible upgrade: ask the model for a bounding box per amenity.

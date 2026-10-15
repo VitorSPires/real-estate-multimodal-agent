@@ -46,6 +46,12 @@ status code after it starts.
 **Why:** Prevents two competing implementations of the same UI piece.
 **In the project:** `src/components/assistant-ui/` vs. `src/components/ui/`.
 
+### Tool calls drive the screen
+**What it is:** The assistant's tool results double as UI commands: `show_evidence` opens the
+evidence viewer, `filter_listings` highlights the matching cards.
+**Why:** The voice/text model doesn't need a separate "UI channel"; whatever it looks up, the user sees.
+**In the project:** `onStep` in `frontend/src/App.tsx`.
+
 ### Adding assistant-ui components
 **What it is:** Components come from the assistant-ui registry through the shadcn CLI:
 `npx shadcn@latest add https://r.assistant-ui.com/<name>.json`.
