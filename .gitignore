@@ -1,0 +1,23 @@
+# Secrets
+.env
+!.env.example
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# App data (SQLite DB, uploads, crops) - regenerated locally
+backend/data/
+
+# Node
+node_modules/
+dist/
+*.tsbuildinfo
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

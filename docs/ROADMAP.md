@@ -1,0 +1,44 @@
+# Roadmap — real-estate-multimodal-agent
+
+> What we still have to build, in approximate order. Forward-looking mirror of `CHANGELOG.md`
+> (which records what is done). The *how* of each phase lives in [`PLAN.md`](PLAN.md) §9.
+>
+> Legend: ✅ done · 🔜 next · 📋 planned · 💡 idea/future
+
+---
+
+## Phase 0 — Scaffold ✅
+- ✅ Repo, living docs, backend (FastAPI + SQLite), frontend (Vite + shadcn + assistant-ui), `_run` scripts
+
+## Phase 1 — Synthetic dataset 🔜
+- 🔜 `dataset/generate.py`: 4 listings (brochure PDF, floor plan PNG, one phone photo, one price chart)
+- 📋 Designed traps: bedroom vs. home office, amenity only in a caption, fee only in the photo, inconsistent price/m²
+- 📋 `ground_truth.json` per listing
+
+## Phase 2 — Ingestion graph
+- 📋 Listing schema (`ExtractedField[T]` + evidence) and SQLite tables
+- 📋 LangGraph nodes: classify → parse_pdf / prepare_image → find_regions → extract_text / extract_visual → verify → escalate → merge → persist
+- 📋 OpenRouter client with per-call cost accounting
+- 📋 CLI: `python -m app.ingestion dataset/listings`
+
+## Phase 3 — Evals + model routing
+- 📋 `evals/run.py`: per-field accuracy × cost × latency for 3 models
+- 📋 Routing config chosen from results; decision written in README
+
+## Phase 4 — API
+- 📋 Upload, SSE narration stream, listings, evidence crops
+
+## Phase 5 — UI (text-only)
+- 📋 Drop zone, narration panel, listing cards, evidence viewer, chat wired to the backend
+
+## Phase 6 — Voice
+- 📋 Spike against current GPT-Live docs
+- 📋 `/api/live/session` (SDP proxy) + `/api/live/tools`, `useLiveSession` hook, voice orb
+
+## Phase 7 — Polish + video
+- 📋 README story, architecture doc, eval table, recorded demo video
+
+## Future 💡
+- 💡 CLIP + small PyTorch head as a local region classifier (cheaper routing)
+- 💡 Docling vs. PyMuPDF layout comparison
+- 💡 Hosted demo + live walkthrough script
