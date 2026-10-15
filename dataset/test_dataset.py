@@ -40,7 +40,7 @@ def dataset_dir(tmp_path_factory: pytest.TempPathFactory) -> Path:
 
 def test_brochures_have_a_native_text_layer(dataset_dir: Path) -> None:
     for listing in LISTINGS:
-        with pymupdf.open(dataset_dir / listing.slug / "brochure.pdf") as pdf:
+        with pymupdf.open(dataset_dir / listing.slug / listing.document_names["brochure"]) as pdf:
             text = "".join(page.get_text() for page in pdf)
         assert listing.title in text
         assert f"USD {listing.price_usd:,}" in text
@@ -48,14 +48,15 @@ def test_brochures_have_a_native_text_layer(dataset_dir: Path) -> None:
 
 def test_traps_are_where_we_put_them(dataset_dir: Path) -> None:
     def brochure_text(slug: str) -> str:
-        with pymupdf.open(dataset_dir / slug / "brochure.pdf") as pdf:
+        brochure = BY_SLUG[slug].document_names["brochure"]
+        with pymupdf.open(dataset_dir / slug / brochure) as pdf:
             return "".join(page.get_text() for page in pdf)
 
     # B: the BBQ grill is only on the floor plan, never in the brochure text.
     assert "BBQ" not in brochure_text("listing-b")
     # C: fees only in the phone photo.
     assert "Condo fee" not in brochure_text("listing-c")
-    assert (dataset_dir / "listing-c" / "price-sheet-photo.jpg").exists()
+    assert (dataset_dir / "listing-c" / "linden-park-7-price-sheet.jpg").exists()
     # D: the brochure states a price per m² that disagrees with price / area.
     assert "USD 5,900" in brochure_text("listing-d")
     assert BY_SLUG["listing-d"].price_per_m2 == 6_622

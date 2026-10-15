@@ -1,0 +1,543 @@
+{
+  "text:maple-court-302-brochure.pdf#text": {
+    "title": {
+      "value": "Maple Court 302",
+      "quote": "Maple Court 302"
+    },
+    "neighborhood": {
+      "value": "Riverside",
+      "quote": "Riverside"
+    },
+    "price_usd": {
+      "value": 412000,
+      "quote": "USD 412,000"
+    },
+    "area_m2": {
+      "value": 68,
+      "quote": "68 m²"
+    },
+    "bedrooms": {
+      "value": 2,
+      "quote": "Bedrooms 2"
+    },
+    "suites": {
+      "value": 1,
+      "quote": "Suites 1"
+    },
+    "bathrooms": {
+      "value": 2,
+      "quote": "Bathrooms 2"
+    },
+    "parking_spots": {
+      "value": 1,
+      "quote": "Parking"
+    },
+    "floor": {
+      "value": 3,
+      "quote": "Floor 3"
+    },
+    "amenities": [
+      {
+        "amenity": "elevator",
+        "quote": "Elevator"
+      },
+      {
+        "amenity": "pool",
+        "quote": "Swimming pool"
+      },
+      {
+        "amenity": "gym",
+        "quote": "Front of the building. Residents' gym on the ground floor."
+      }
+    ],
+    "condo_fee_usd": {
+      "value": 520,
+      "quote": "USD 520 / month"
+    },
+    "property_tax_usd": {
+      "value": 4100,
+      "quote": "USD 4,100 / year"
+    }
+  },
+  "triage:maple-court-302-brochure.pdf#p1-img1": {
+    "kind": "property_photo",
+    "reason": "Photo of buildings."
+  },
+  "triage:maple-court-302-floorplan.png": {
+    "kind": "floor_plan",
+    "reason": "Architectural drawing of rooms."
+  },
+  "floor_plan:maple-court-302-floorplan.png": {
+    "title": "MAPLE COURT 302",
+    "total_area_m2": 68,
+    "rooms": [
+      {
+        "label": "LIV / DIN",
+        "kind": "living",
+        "width_m": 5.5,
+        "length_m": 4.2
+      },
+      {
+        "label": "KIT",
+        "kind": "kitchen",
+        "width_m": 3.2,
+        "length_m": 2.8
+      },
+      {
+        "label": "WC",
+        "kind": "bathroom",
+        "width_m": 2.3,
+        "length_m": 2.8
+      },
+      {
+        "label": "BR 2",
+        "kind": "bedroom",
+        "width_m": 4.5,
+        "length_m": 3.2
+      },
+      {
+        "label": "MBR",
+        "kind": "bedroom",
+        "width_m": 3.0,
+        "length_m": 3.8
+      },
+      {
+        "label": "WC",
+        "kind": "bathroom",
+        "width_m": 1.5,
+        "length_m": 3.8
+      }
+    ],
+    "amenities": []
+  },
+  "text:harbor-view-1104-brochure.pdf#text": {
+    "title": {
+      "value": "Harbor View 1104",
+      "quote": "Harbor View 1104"
+    },
+    "neighborhood": {
+      "value": "Old Port",
+      "quote": "Old Port"
+    },
+    "price_usd": {
+      "value": 538000,
+      "quote": "USD 538,000"
+    },
+    "area_m2": {
+      "value": 84,
+      "quote": "84 m²"
+    },
+    "bedrooms": {
+      "value": 2,
+      "quote": "Bedrooms 2"
+    },
+    "suites": {
+      "value": 1,
+      "quote": "Suites 1"
+    },
+    "bathrooms": {
+      "value": 2,
+      "quote": "Bathrooms 2"
+    },
+    "parking_spots": {
+      "value": 2,
+      "quote": "Parking"
+    },
+    "floor": {
+      "value": 11,
+      "quote": "Floor 11"
+    },
+    "amenities": [
+      {
+        "amenity": "elevator",
+        "quote": "Elevator"
+      },
+      {
+        "amenity": "pet_friendly",
+        "quote": "Pet friendly"
+      }
+    ],
+    "condo_fee_usd": {
+      "value": 690,
+      "quote": "USD 690 / month"
+    },
+    "property_tax_usd": {
+      "value": 5300,
+      "quote": "USD 5,300 / year"
+    }
+  },
+  "triage:harbor-view-1104-brochure.pdf#p1-img1": {
+    "kind": "property_photo",
+    "reason": "Photo of buildings."
+  },
+  "triage:harbor-view-1104-brochure.pdf#p2-img1": {
+    "kind": "chart",
+    "reason": "Line chart of prices."
+  },
+  "chart:harbor-view-1104-brochure.pdf#p2-img1": {
+    "default": {
+      "title": "Old Port: average price per m² (USD)",
+      "neighborhood": "Old Port",
+      "metric": "average price per m² (USD)",
+      "points": [
+        {
+          "year": 2021,
+          "value": 5368
+        },
+        {
+          "year": 2022,
+          "value": 5796
+        }
+      ]
+    },
+    "by_model": {
+      "openai/gpt-6.1-sol": {
+        "title": "Old Port: average price per m² (USD)",
+        "neighborhood": "Old Port",
+        "metric": "average price per m² (USD)",
+        "points": [
+          {
+            "year": 2021,
+            "value": 5368
+          },
+          {
+            "year": 2022,
+            "value": 5796
+          },
+          {
+            "year": 2023,
+            "value": 6014
+          },
+          {
+            "year": 2024,
+            "value": 6350
+          },
+          {
+            "year": 2025,
+            "value": 6511
+          }
+        ]
+      }
+    }
+  },
+  "triage:harbor-view-1104-floorplan.png": {
+    "kind": "floor_plan",
+    "reason": "Architectural drawing of rooms."
+  },
+  "floor_plan:harbor-view-1104-floorplan.png": {
+    "title": "HARBOR VIEW 1104",
+    "total_area_m2": 84,
+    "rooms": [
+      {
+        "label": "GOURMET BALC.",
+        "kind": "balcony",
+        "width_m": 5.5,
+        "length_m": 1.6
+      },
+      {
+        "label": "LIV / DIN",
+        "kind": "living",
+        "width_m": 5.5,
+        "length_m": 3.4
+      },
+      {
+        "label": "KIT",
+        "kind": "kitchen",
+        "width_m": 3.0,
+        "length_m": 2.0
+      },
+      {
+        "label": "WC",
+        "kind": "bathroom",
+        "width_m": 2.5,
+        "length_m": 2.0
+      },
+      {
+        "label": "OFFICE",
+        "kind": "office",
+        "width_m": 2.6,
+        "length_m": 2.8
+      },
+      {
+        "label": "BR 2",
+        "kind": "bedroom",
+        "width_m": 3.9,
+        "length_m": 2.8
+      },
+      {
+        "label": "MBR",
+        "kind": "bedroom",
+        "width_m": 4.5,
+        "length_m": 4.2
+      },
+      {
+        "label": "WC",
+        "kind": "bathroom",
+        "width_m": 2.0,
+        "length_m": 4.2
+      }
+    ],
+    "amenities": [
+      {
+        "amenity": "bbq_grill",
+        "quote": "BBQ"
+      },
+      {
+        "amenity": "gourmet_balcony",
+        "quote": "GOURMET BALC."
+      }
+    ]
+  },
+  "text:linden-park-7-brochure.pdf#text": {
+    "title": {
+      "value": "Linden Park 7",
+      "quote": "Linden Park 7"
+    },
+    "neighborhood": {
+      "value": "Green Hills",
+      "quote": "Green Hills"
+    },
+    "price_usd": {
+      "value": 720000,
+      "quote": "USD 720,000"
+    },
+    "area_m2": {
+      "value": 112,
+      "quote": "112 m²"
+    },
+    "bedrooms": {
+      "value": 3,
+      "quote": "Bedrooms 3"
+    },
+    "suites": {
+      "value": 2,
+      "quote": "Suites 2"
+    },
+    "bathrooms": {
+      "value": 3,
+      "quote": "Bathrooms 3"
+    },
+    "parking_spots": {
+      "value": 2,
+      "quote": "Parking"
+    },
+    "floor": {
+      "value": 7,
+      "quote": "Floor 7"
+    },
+    "amenities": [
+      {
+        "amenity": "doorman",
+        "quote": "24h doorman"
+      },
+      {
+        "amenity": "elevator",
+        "quote": "Elevator"
+      },
+      {
+        "amenity": "gym",
+        "quote": "Gym"
+      },
+      {
+        "amenity": "pool",
+        "quote": "Swimming pool"
+      }
+    ]
+  },
+  "triage:linden-park-7-brochure.pdf#p1-img1": {
+    "kind": "property_photo",
+    "reason": "Photo of buildings."
+  },
+  "triage:linden-park-7-floorplan.png": {
+    "kind": "floor_plan",
+    "reason": "Architectural drawing of rooms."
+  },
+  "floor_plan:linden-park-7-floorplan.png": {
+    "title": "LINDEN PARK 7",
+    "total_area_m2": 112,
+    "rooms": [
+      {
+        "label": "LIV / DIN",
+        "kind": "living",
+        "width_m": 6.0,
+        "length_m": 5.0
+      },
+      {
+        "label": "KIT",
+        "kind": "kitchen",
+        "width_m": 3.5,
+        "length_m": 3.0
+      },
+      {
+        "label": "WC",
+        "kind": "bathroom",
+        "width_m": 2.5,
+        "length_m": 3.0
+      },
+      {
+        "label": "BR 3",
+        "kind": "bedroom",
+        "width_m": 3.5,
+        "length_m": 3.5
+      },
+      {
+        "label": "MBR",
+        "kind": "bedroom",
+        "width_m": 3.0,
+        "length_m": 3.5
+      },
+      {
+        "label": "WC",
+        "kind": "bathroom",
+        "width_m": 1.5,
+        "length_m": 3.5
+      },
+      {
+        "label": "BR 2 (EN-SUITE)",
+        "kind": "bedroom",
+        "width_m": 3.5,
+        "length_m": 4.5
+      },
+      {
+        "label": "WC",
+        "kind": "bathroom",
+        "width_m": 1.5,
+        "length_m": 4.5
+      },
+      {
+        "label": "LDY / STOR.",
+        "kind": "laundry",
+        "width_m": 3.0,
+        "length_m": 4.5
+      }
+    ],
+    "amenities": []
+  },
+  "triage:linden-park-7-price-sheet.jpg": {
+    "kind": "document_photo",
+    "reason": "Photo of a printed price sheet."
+  },
+  "document_photo:linden-park-7-price-sheet.jpg": {
+    "title": {
+      "value": "Linden Park 7",
+      "quote": "Linden Park 7 · Green Hills"
+    },
+    "neighborhood": {
+      "value": "Green Hills",
+      "quote": "Green Hills"
+    },
+    "price_usd": {
+      "value": 720000,
+      "quote": "USD 720,000"
+    },
+    "condo_fee_usd": {
+      "value": 980,
+      "quote": "Condo fee (monthly) USD 980"
+    },
+    "property_tax_usd": {
+      "value": 6840,
+      "quote": "Property tax (yearly) USD 6,840"
+    },
+    "parking_spots": {
+      "value": 2,
+      "quote": "2 spots included"
+    }
+  },
+  "text:cedar-lofts-5b-brochure.pdf#text": {
+    "title": {
+      "value": "Cedar Lofts 5B",
+      "quote": "Cedar Lofts 5B"
+    },
+    "neighborhood": {
+      "value": "Old Port",
+      "quote": "Old Port"
+    },
+    "price_usd": {
+      "value": 298000,
+      "quote": "USD 298,000"
+    },
+    "area_m2": {
+      "value": 45,
+      "quote": "45 m²"
+    },
+    "bedrooms": {
+      "value": 1,
+      "quote": "Bedrooms 1"
+    },
+    "suites": {
+      "value": 0,
+      "quote": "Suites 0"
+    },
+    "bathrooms": {
+      "value": 1,
+      "quote": "Bathrooms 1"
+    },
+    "parking_spots": {
+      "value": 0,
+      "quote": "Parking"
+    },
+    "floor": {
+      "value": 5,
+      "quote": "Floor 5"
+    },
+    "amenities": [
+      {
+        "amenity": "bbq_grill",
+        "quote": "BBQ grill"
+      },
+      {
+        "amenity": "elevator",
+        "quote": "Elevator"
+      },
+      {
+        "amenity": "pet_friendly",
+        "quote": "Pet friendly"
+      }
+    ],
+    "condo_fee_usd": {
+      "value": 410,
+      "quote": "USD 410 / month"
+    },
+    "property_tax_usd": {
+      "value": 2900,
+      "quote": "USD 2,900 / year"
+    },
+    "stated_price_per_m2": {
+      "value": 5900,
+      "quote": "USD 5,900"
+    }
+  },
+  "triage:cedar-lofts-5b-brochure.pdf#p1-img1": {
+    "kind": "property_photo",
+    "reason": "Photo of buildings."
+  },
+  "triage:cedar-lofts-5b-floorplan.png": {
+    "kind": "floor_plan",
+    "reason": "Architectural drawing of rooms."
+  },
+  "floor_plan:cedar-lofts-5b-floorplan.png": {
+    "title": "CEDAR LOFTS 5B",
+    "total_area_m2": 45,
+    "rooms": [
+      {
+        "label": "LIV / KIT",
+        "kind": "living",
+        "width_m": 4.5,
+        "length_m": 6.0
+      },
+      {
+        "label": "BR",
+        "kind": "bedroom",
+        "width_m": 3.0,
+        "length_m": 3.5
+      },
+      {
+        "label": "WC",
+        "kind": "bathroom",
+        "width_m": 3.0,
+        "length_m": 2.5
+      }
+    ],
+    "amenities": []
+  }
+}

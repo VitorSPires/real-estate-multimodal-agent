@@ -1,9 +1,9 @@
 {
   "slug": "listing-c",
   "documents": [
-    "brochure.pdf",
-    "floorplan.png",
-    "price-sheet-photo.jpg"
+    "linden-park-7-brochure.pdf",
+    "linden-park-7-floorplan.png",
+    "linden-park-7-price-sheet.jpg"
   ],
   "fields": {
     "title": "Linden Park 7",
@@ -30,7 +30,7 @@
     "price_trend": null
   },
   "sources": {
-    "fees": "price-sheet-photo.jpg",
+    "fees": "linden-park-7-price-sheet.jpg",
     "amenities": {
       "doorman": "brochure_text",
       "elevator": "brochure_text",

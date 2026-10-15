@@ -74,6 +74,18 @@ class Listing:
     def price_per_m2(self) -> int:
         return round(self.price_usd / self.area_m2)
 
+    @property
+    def document_names(self) -> dict[str, str]:
+        """File name per document role, e.g. 'harbor-view-1104-brochure.pdf'.
+
+        Unique across listings, like files a broker would send, so they can all be uploaded together.
+        """
+        stem = self.title.lower().replace(" ", "-")
+        names = {"brochure": f"{stem}-brochure.pdf", "floorplan": f"{stem}-floorplan.png"}
+        if not self.fees_in_brochure:
+            names["price_sheet"] = f"{stem}-price-sheet.jpg"
+        return names
+
 
 LISTINGS: tuple[Listing, ...] = (
     Listing(

@@ -52,6 +52,66 @@ data (Phase 3), not by preference.
 
 ---
 
+## [009] Evidence stored inside the listing JSON
+
+**Context:** The plan listed a separate `evidence` table.
+
+**Choice:** `listings.record` holds the whole `ListingRecord` (fields, conflicts, evidence) as JSON.
+
+**Why:** The record is always read and written as a unit (API, voice tools, UI card). A table
+would add joins without enabling any query we need. Revisit if we ever search across evidence.
+
+---
+
+## [008] Observations, title-based grouping and the conflict policy
+
+**Context:** Facts arrive from different documents, read by different models, sometimes disagreeing.
+
+**Choice:**
+- Every reading is converted to `Observation`s (field, value, evidence) before merging.
+- Documents are grouped into listings by a normalized printed title (`listing_key`).
+- Per field: native text beats vision; disagreeing values are kept as `conflict` alternatives.
+- Price per m² is always computed from price and area; a stated value off by >3% is a conflict.
+- A room labeled *office* on the plan produces a "bedrooms + offices" alternative.
+- Confidence: fixed constants (native text 0.95, vision 0.85, conflict <= 0.67).
+
+**Why:** Merge logic stays independent of models and document types, and is unit-testable.
+Keeping conflicts instead of resolving them is the product: the buyer should see the
+disagreement. **Limitation:** confidence values are heuristics, not calibrated probabilities.
+
+---
+
+## [007] Image triage before extraction; escalation to a different provider
+
+**Context:** Brochures embed decorative photos next to charts; vision calls on strong models are the main cost.
+
+**Choice:** A `triage_images` node classifies each image with a cheap model; only floor plans,
+charts and document photos go to the (routed) strong model. A reading that fails verification is
+retried once on `Routing.escalation`, a model from a different provider.
+
+**Why:** Cost (decorative images never reach an expensive model) and robustness (a second
+provider is less likely to repeat the same mistake). Bounded: one escalation per reading.
+
+---
+
+## [006] Automatic provider selection and an offline mode with canned answers
+
+**Context:** The repo is public and must be explorable without API keys; during the autonomous
+build no valid key was available.
+
+**Options considered:**
+- **Require keys** — honest, but nobody can click through the demo without paying.
+- **Offline mode with canned answers** — the full pipeline and UI run; answers come from fixtures.
+
+**Choice:** `LLM_PROVIDER=auto` picks OpenRouter -> OpenAI -> offline (`fake`). Fixtures are
+generated from the dataset spec (`dataset/make_fake_llm.py`) with one deliberate error to
+exercise escalation. Offline mode announces itself in the narration and in the UI.
+
+**Why:** Tests and UI development need deterministic model answers anyway; reusing them as an
+offline demo is free. Clearly labeled so it is never mistaken for model results.
+
+---
+
 ## [005] Synthetic dataset generated from a spec
 
 **Context:** Evals need documents with known correct answers, and the repo is public.

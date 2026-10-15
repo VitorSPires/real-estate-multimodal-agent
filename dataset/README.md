@@ -38,9 +38,11 @@ interpretation, not just OCR.
 
 ## Files per listing
 
-- `brochure.pdf` — 2 pages, native text layer, embedded photo (+ chart for B)
-- `floorplan.png` — architectural-style plan
-- `price-sheet-photo.jpg` — only for C
+Named like files a broker would send (unique across listings, so all can be uploaded at once):
+
+- `<title>-brochure.pdf` — 2 pages, native text layer, embedded photo (+ chart for B)
+- `<title>-floorplan.png` — architectural-style plan
+- `<title>-price-sheet.jpg` — only for C (`linden-park-7-price-sheet.jpg`)
 - `ground_truth.json` — expected `fields`, where hard facts live (`sources`),
   `expected_conflicts`, and `tolerances`
 

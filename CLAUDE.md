@@ -42,7 +42,8 @@ app/
 ├── config.py       settings from env / backend/.env
 ├── db.py           engine, session, Base, init_db
 ├── api/            HTTP routers (all mounted under /api)
-├── ingestion/      LangGraph graph + nodes + prompts   (Phase 2)
+├── models.py       ORM tables · store.py: reads/writes
+├── ingestion/      LangGraph graph (graph.py), nodes, parsing, merge, prompts/, llm.py, routing.py
 └── live/           GPT-Live session + conversation tools (Phase 6)
 ```
 
@@ -74,6 +75,8 @@ app/
 - One click: `_run/win.bat` (Windows) or `_run/mac.command` (macOS).
 - Backend tests: `cd backend && .venv/Scripts/python -m pytest` (`.venv/bin/python` on macOS).
 - Dataset: `backend/.venv/Scripts/python -m dataset.generate` and `... -m pytest dataset` (from the repo root).
+- Ingestion CLI: `cd backend && .venv/Scripts/python -m app.ingestion ../dataset/listings [--provider fake]`.
+- Canned model answers: `backend/.venv/Scripts/python -m dataset.make_fake_llm` (regenerate after changing the spec).
 - Frontend build check: `cd frontend && npm run build`.
 
 ---

@@ -1,8 +1,8 @@
 {
   "slug": "listing-b",
   "documents": [
-    "brochure.pdf",
-    "floorplan.png"
+    "harbor-view-1104-brochure.pdf",
+    "harbor-view-1104-floorplan.png"
   ],
   "fields": {
     "title": "Harbor View 1104",
@@ -50,7 +50,7 @@
     ]
   },
   "sources": {
-    "fees": "brochure.pdf",
+    "fees": "harbor-view-1104-brochure.pdf",
     "amenities": {
       "elevator": "brochure_text",
       "pet_friendly": "brochure_text",

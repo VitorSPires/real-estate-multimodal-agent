@@ -5,6 +5,27 @@
 
 ---
 
+## [003] Ingestion graph (Phase 2)
+
+**What was done:**
+- `app/ingestion/`: LangGraph graph (`graph.py`) with nodes classify -> parse_pdf || prepare_image ->
+  extract_text || (triage_images -> extract_visual) -> verify <-> escalate -> merge -> persist.
+- PDF parsing with PyMuPDF (text layer, embedded images, page renders, quote -> bbox lookup).
+- `llm.py`: one `complete_json` interface; OpenRouter / OpenAI via the OpenAI SDK, and a
+  `FakeLLMClient` with canned answers. `routing.py`: model per task.
+- `observations.py`, `verify.py`, `merge.py`: pure functions for evidence, checks and merging.
+- SQLite tables (`models.py`) and `store.py`; CLI `python -m app.ingestion`.
+- 22 new tests, including the full graph over the dataset (offline).
+- Dataset files renamed to unique, broker-style names.
+
+**Why:** Phase 2 of `PLAN.md` — the core of the project.
+
+**New concepts introduced:** observation, triage, escalation, entity resolution, structured
+output, join edge (see `GLOSSARY.md`); decisions [006]–[009].
+- *Gotcha:* the Windows console (cp1252) can't print `→`/`⚠`; the CLI reconfigures stdout to UTF-8.
+
+---
+
 ## [002] Synthetic dataset (Phase 1)
 
 **What was done:**

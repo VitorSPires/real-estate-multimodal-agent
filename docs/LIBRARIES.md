@@ -59,6 +59,23 @@ one theme.
 **How we use it:** `dataset/phone_photo.py` draws the price sheet and degrades it (perspective
 warp, shading, noise, blur) to look like a phone photo.
 
+### LangGraph
+**What it is:** Library for building stateful graphs of steps (nodes) around LLM calls, with
+streaming, parallel branches, joins and conditional edges.
+**Why we chose it:** The ingestion flow has real control flow (parallel branches, a verify ->
+escalate loop) and the target roles ask for it. Runtime context injection keeps dependencies
+(LLM client, routing, store) out of the state.
+**Alternatives:** plain asyncio code (fine, but the flow becomes implicit); LangChain LCEL (no loops).
+**How we use it:** `app/ingestion/graph.py` (wiring), `nodes.py` (nodes), `get_stream_writer()` for narration.
+
+### OpenAI Python SDK
+**What it is:** Official client for the OpenAI API — also works with OpenRouter by changing `base_url`.
+**How we use it:** `app/ingestion/llm.py` -> `chat.completions.create(response_format=json_schema)`.
+
+### uuid6
+**What it is:** Backport of UUID v7 (time-ordered UUIDs) for Python < 3.14.
+**How we use it:** `app/models.py` -> `new_id()`.
+
 ### pydantic-settings
 **What it is:** Typed settings loaded from environment variables and `.env`.
 **How we use it:** `app/config.py` — `settings.openai_api_key`, `settings.database_url`, …

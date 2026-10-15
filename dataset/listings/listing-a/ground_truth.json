@@ -1,8 +1,8 @@
 {
   "slug": "listing-a",
   "documents": [
-    "brochure.pdf",
-    "floorplan.png"
+    "maple-court-302-brochure.pdf",
+    "maple-court-302-floorplan.png"
   ],
   "fields": {
     "title": "Maple Court 302",
@@ -29,7 +29,7 @@
     "price_trend": null
   },
   "sources": {
-    "fees": "brochure.pdf",
+    "fees": "maple-court-302-brochure.pdf",
     "amenities": {
       "elevator": "brochure_text",
       "pool": "brochure_text",

@@ -1,8 +1,8 @@
 {
   "slug": "listing-d",
   "documents": [
-    "brochure.pdf",
-    "floorplan.png"
+    "cedar-lofts-5b-brochure.pdf",
+    "cedar-lofts-5b-floorplan.png"
   ],
   "fields": {
     "title": "Cedar Lofts 5B",
@@ -29,7 +29,7 @@
     "price_trend": null
   },
   "sources": {
-    "fees": "brochure.pdf",
+    "fees": "cedar-lofts-5b-brochure.pdf",
     "amenities": {
       "bbq_grill": "brochure_text",
       "elevator": "brochure_text",

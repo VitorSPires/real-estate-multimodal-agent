@@ -33,22 +33,20 @@ def _render_documents(listing: Listing, folder: Path) -> None:
     # Hero photo and chart stay in memory: they only exist to be embedded in the PDF.
     # (Temp files would also make the PDF non-deterministic: reportlab names embedded
     # images after their file path.)
+    names = listing.document_names
     hero = render_hero_photo(listing)
     chart = render_price_chart(listing) if listing.price_trend else None
-    render_brochure(listing, hero, chart, folder / "brochure.pdf")
-    render_floor_plan(listing, folder / "floorplan.png")
-    if not listing.fees_in_brochure:
-        render_price_sheet_photo(listing, folder / "price-sheet-photo.jpg")
+    render_brochure(listing, hero, chart, folder / names["brochure"])
+    render_floor_plan(listing, folder / names["floorplan"])
+    if "price_sheet" in names:
+        render_price_sheet_photo(listing, folder / names["price_sheet"])
 
 
 def ground_truth(listing: Listing) -> dict:
     """What a perfect extraction of this listing's documents should produce."""
     return {
         "slug": listing.slug,
-        "documents": sorted(
-            ["brochure.pdf", "floorplan.png"]
-            + ([] if listing.fees_in_brochure else ["price-sheet-photo.jpg"])
-        ),
+        "documents": sorted(listing.document_names.values()),
         "fields": {
             "title": listing.title,
             "neighborhood": listing.neighborhood,
@@ -67,7 +65,7 @@ def ground_truth(listing: Listing) -> dict:
         },
         # Where the harder facts live, so the eval can report accuracy per source type.
         "sources": {
-            "fees": "brochure.pdf" if listing.fees_in_brochure else "price-sheet-photo.jpg",
+            "fees": listing.document_names["price_sheet" if "price_sheet" in listing.document_names else "brochure"],
             "amenities": {
                 **{a: "brochure_text" for a in sorted(listing.brochure_amenities)},
                 **{a: "photo_caption" for a in sorted(listing.caption_amenities)},

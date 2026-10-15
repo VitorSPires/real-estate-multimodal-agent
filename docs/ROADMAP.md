@@ -14,14 +14,12 @@
 - ✅ `dataset/generate.py`: 4 listings (brochure PDF, floor plan PNG, one phone photo, one price chart)
 - ✅ Designed traps + `ground_truth.json` per listing (see `dataset/README.md`)
 
-## Phase 2 — Ingestion graph 🔜
-- 🔜 Listing schema (`ExtractedField[T]` + evidence) and SQLite tables
-- 📋 LangGraph nodes: classify → parse_pdf / prepare_image → find_regions → extract_text / extract_visual → verify → escalate → merge → persist
-- 📋 OpenRouter client with per-call cost accounting
-- 📋 CLI: `python -m app.ingestion dataset/listings`
+## Phase 2 — Ingestion graph ✅
+- ✅ Schema, SQLite tables, LangGraph graph with triage + escalation, cost accounting, CLI
+- 📋 First run with real models (needs a valid API key — see `REVIEW-NOTES.md`)
 
-## Phase 3 — Evals + model routing
-- 📋 `evals/run.py`: per-field accuracy × cost × latency for 3 models
+## Phase 3 — Evals + model routing 🔜
+- 🔜 `evals/run.py`: per-field accuracy × cost × latency for 3 models
 - 📋 Routing config chosen from results; decision written in README
 
 ## Phase 4 — API
