@@ -10,13 +10,12 @@
 ## Phase 0 — Scaffold ✅
 - ✅ Repo, living docs, backend (FastAPI + SQLite), frontend (Vite + shadcn + assistant-ui), `_run` scripts
 
-## Phase 1 — Synthetic dataset 🔜
-- 🔜 `dataset/generate.py`: 4 listings (brochure PDF, floor plan PNG, one phone photo, one price chart)
-- 📋 Designed traps: bedroom vs. home office, amenity only in a caption, fee only in the photo, inconsistent price/m²
-- 📋 `ground_truth.json` per listing
+## Phase 1 — Synthetic dataset ✅
+- ✅ `dataset/generate.py`: 4 listings (brochure PDF, floor plan PNG, one phone photo, one price chart)
+- ✅ Designed traps + `ground_truth.json` per listing (see `dataset/README.md`)
 
-## Phase 2 — Ingestion graph
-- 📋 Listing schema (`ExtractedField[T]` + evidence) and SQLite tables
+## Phase 2 — Ingestion graph 🔜
+- 🔜 Listing schema (`ExtractedField[T]` + evidence) and SQLite tables
 - 📋 LangGraph nodes: classify → parse_pdf / prepare_image → find_regions → extract_text / extract_visual → verify → escalate → merge → persist
 - 📋 OpenRouter client with per-call cost accounting
 - 📋 CLI: `python -m app.ingestion dataset/listings`

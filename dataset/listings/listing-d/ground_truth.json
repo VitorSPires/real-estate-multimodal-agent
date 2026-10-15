@@ -1,0 +1,52 @@
+{
+  "slug": "listing-d",
+  "documents": [
+    "brochure.pdf",
+    "floorplan.png"
+  ],
+  "fields": {
+    "title": "Cedar Lofts 5B",
+    "neighborhood": "Old Port",
+    "price_usd": 298000,
+    "area_m2": 45,
+    "price_per_m2": 6622,
+    "bedrooms": 1,
+    "suites": 0,
+    "bathrooms": 1,
+    "parking_spots": 0,
+    "floor": 5,
+    "condo_fee_usd": 410,
+    "property_tax_usd": 2900,
+    "amenities": {
+      "bbq_grill": true,
+      "pool": false,
+      "gym": false,
+      "gourmet_balcony": false,
+      "pet_friendly": true,
+      "elevator": true,
+      "doorman": false
+    },
+    "price_trend": null
+  },
+  "sources": {
+    "fees": "brochure.pdf",
+    "amenities": {
+      "bbq_grill": "brochure_text",
+      "elevator": "brochure_text",
+      "pet_friendly": "brochure_text"
+    }
+  },
+  "expected_conflicts": [
+    {
+      "field": "price_per_m2",
+      "values": [
+        5900,
+        6622
+      ],
+      "why": "Brochure states USD 5,900/m2, but price / area = 6,622."
+    }
+  ],
+  "tolerances": {
+    "price_trend": 0.03
+  }
+}

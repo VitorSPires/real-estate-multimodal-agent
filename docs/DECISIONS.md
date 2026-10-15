@@ -52,6 +52,23 @@ data (Phase 3), not by preference.
 
 ---
 
+## [005] Synthetic dataset generated from a spec
+
+**Context:** Evals need documents with known correct answers, and the repo is public.
+
+**Options considered:**
+- **Real brochures** — realistic, but need manual labeling and can't be redistributed.
+- **AI-generated images** — look real, but the content isn't controllable, so there's no exact ground truth.
+- **Programmatic generation from a spec** — less photo-realistic, but every value is known and the traps are deliberate.
+
+**Choice:** Programmatic generation (`dataset/spec.py` → renderers → `ground_truth.json`).
+
+**Why:** Exact ground truth and designed traps matter more than realism for measuring extraction.
+Realism comes from the hard parts (unlabeled chart, shorthand floor plans, degraded phone photo).
+Real public-domain brochures stay a v2 idea for a harder eval split.
+
+---
+
 ## [004] Monorepo with `backend/` and `frontend/`, venv + requirements.txt
 
 **Context:** House convention suggests `<project>-backend` / `<project>-frontend` and the plan

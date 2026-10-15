@@ -1,0 +1,45 @@
+{
+  "slug": "listing-c",
+  "documents": [
+    "brochure.pdf",
+    "floorplan.png",
+    "price-sheet-photo.jpg"
+  ],
+  "fields": {
+    "title": "Linden Park 7",
+    "neighborhood": "Green Hills",
+    "price_usd": 720000,
+    "area_m2": 112,
+    "price_per_m2": 6429,
+    "bedrooms": 3,
+    "suites": 2,
+    "bathrooms": 3,
+    "parking_spots": 2,
+    "floor": 7,
+    "condo_fee_usd": 980,
+    "property_tax_usd": 6840,
+    "amenities": {
+      "bbq_grill": false,
+      "pool": true,
+      "gym": true,
+      "gourmet_balcony": false,
+      "pet_friendly": false,
+      "elevator": true,
+      "doorman": true
+    },
+    "price_trend": null
+  },
+  "sources": {
+    "fees": "price-sheet-photo.jpg",
+    "amenities": {
+      "doorman": "brochure_text",
+      "elevator": "brochure_text",
+      "gym": "brochure_text",
+      "pool": "brochure_text"
+    }
+  },
+  "expected_conflicts": [],
+  "tolerances": {
+    "price_trend": 0.03
+  }
+}

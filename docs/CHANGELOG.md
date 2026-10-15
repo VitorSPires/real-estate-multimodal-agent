@@ -5,6 +5,34 @@
 
 ---
 
+## [002] Synthetic dataset (Phase 1)
+
+**What was done:**
+- `dataset/spec.py` describes the four listings (facts, floor-plan rooms, where each fact is
+  printed, and the traps). It is the single source of truth.
+- Renderers: `brochure.py` (reportlab PDF with a native text layer), `images.py` (floor plans,
+  stylized building photos, neighborhood price chart with matplotlib), `phone_photo.py` (price
+  sheet drawn with Pillow, then warped, shaded, noised and blurred like a phone photo).
+- `generate.py` writes `dataset/listings/<slug>/` with the documents and `ground_truth.json`.
+- `test_dataset.py` (9 tests): floor plans agree with the facts, the demo query has exactly one
+  answer, brochures have extractable text, the traps are where we put them, and generation is
+  byte-identical across runs.
+
+**Why:**
+Phase 1 of `PLAN.md`. Evals (Phase 3) need documents whose correct answers we know exactly; real
+brochures would need hand labeling and can't be published.
+
+**New concepts introduced:**
+- *Ground truth derived from the generator* — documents and expected answers come from the same
+  objects, so they can't disagree. Traps are explicit spec fields, not accidents. See `DECISIONS.md` [005].
+- *Native text layer vs. image-only document* — the brochures carry real text (PyMuPDF reads it
+  for free), while the phone photo has none and must go through a vision model. See `GLOSSARY.md`.
+- *Determinism gotcha* — reportlab names embedded images after their file path, so rendering them
+  to temp files made every PDF different. Images are now rendered in memory (`BytesIO`), and
+  ground-truth dict order no longer depends on `frozenset` iteration. A test guards this.
+
+---
+
 ## [001] Project scaffold (Phase 0)
 
 **What was done:**

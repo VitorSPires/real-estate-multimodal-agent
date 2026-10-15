@@ -31,6 +31,10 @@ src/
 └── lib/                        shared helpers (cn, …)
 ```
 
+### Dataset — `dataset/`
+`spec.py` (source of truth) → renderers (`brochure.py`, `images.py`, `phone_photo.py`) →
+`generate.py` → `listings/<slug>/` (documents + `ground_truth.json`). Uses the backend venv.
+
 ### Backend — by responsibility
 ```
 app/
@@ -69,6 +73,7 @@ app/
 
 - One click: `_run/win.bat` (Windows) or `_run/mac.command` (macOS).
 - Backend tests: `cd backend && .venv/Scripts/python -m pytest` (`.venv/bin/python` on macOS).
+- Dataset: `backend/.venv/Scripts/python -m dataset.generate` and `... -m pytest dataset` (from the repo root).
 - Frontend build check: `cd frontend && npm run build`.
 
 ---

@@ -20,11 +20,30 @@ list *we* keep in React state and calls us back when the user sends something.
 *In this project:* `useExternalStoreRuntime` in `frontend/src/App.tsx`. Later, ingestion
 narration and voice transcripts will be appended to that same list.
 
+## G
+
+**Ground truth**
+The known correct answer for each field, used to score the extraction pipeline.
+*In this project:* `dataset/listings/<slug>/ground_truth.json`, generated from `dataset/spec.py`.
+
 ## L
 
 **Lifespan**
 A FastAPI hook that runs code once when the server starts (and once when it stops).
 *In this project:* `app/main.py` creates the SQLite database there.
+
+## N
+
+**Native text layer**
+Text stored *as text* inside a PDF (you can select and copy it). Reading it needs no AI. Scanned
+pages and photos don't have one: their text is just pixels and needs OCR or a vision model.
+*In this project:* the brochures have one; `price-sheet-photo.jpg` doesn't.
+
+## P
+
+**Perspective transform**
+Warping an image so a rectangle becomes a skewed quadrilateral, like a page photographed at an angle.
+*In this project:* `dataset/phone_photo.py` → `_degrade_like_phone_photo`.
 
 ## S
 

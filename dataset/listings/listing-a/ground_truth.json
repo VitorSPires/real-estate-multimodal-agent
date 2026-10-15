@@ -1,0 +1,43 @@
+{
+  "slug": "listing-a",
+  "documents": [
+    "brochure.pdf",
+    "floorplan.png"
+  ],
+  "fields": {
+    "title": "Maple Court 302",
+    "neighborhood": "Riverside",
+    "price_usd": 412000,
+    "area_m2": 68,
+    "price_per_m2": 6059,
+    "bedrooms": 2,
+    "suites": 1,
+    "bathrooms": 2,
+    "parking_spots": 1,
+    "floor": 3,
+    "condo_fee_usd": 520,
+    "property_tax_usd": 4100,
+    "amenities": {
+      "bbq_grill": false,
+      "pool": true,
+      "gym": true,
+      "gourmet_balcony": false,
+      "pet_friendly": false,
+      "elevator": true,
+      "doorman": false
+    },
+    "price_trend": null
+  },
+  "sources": {
+    "fees": "brochure.pdf",
+    "amenities": {
+      "elevator": "brochure_text",
+      "pool": "brochure_text",
+      "gym": "photo_caption"
+    }
+  },
+  "expected_conflicts": [],
+  "tolerances": {
+    "price_trend": 0.03
+  }
+}

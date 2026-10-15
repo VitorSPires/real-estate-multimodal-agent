@@ -39,6 +39,26 @@ one theme.
 **Why we chose it:** House standard; works the same on SQLite and Postgres. See DECISIONS [001].
 **How we use it:** `app/db.py` — engine, `SessionLocal`, `Base`, `init_db()`.
 
+### PyMuPDF (`pymupdf`)
+**What it is:** Fast PDF library: text with positions (bounding boxes), embedded images, page rendering.
+**Why we chose it:** Reading the native text layer costs nothing, and bounding boxes give us evidence locations for free.
+**Alternatives:** pdfplumber (great for tables, slower), Docling (layout models, heavier — v2 comparison).
+**How we use it:** Dataset tests check the brochures' text layer; Phase 2 parses PDFs with it.
+
+### reportlab
+**What it is:** Python library that writes PDFs.
+**How we use it:** `dataset/brochure.py` builds the brochures (`SimpleDocTemplate` + flowables).
+`rl_config.invariant = 1` keeps output byte-identical.
+
+### matplotlib
+**What it is:** Plotting library.
+**How we use it:** `dataset/images.py` draws floor plans, stylized building photos and the price chart.
+
+### Pillow
+**What it is:** Image manipulation library.
+**How we use it:** `dataset/phone_photo.py` draws the price sheet and degrades it (perspective
+warp, shading, noise, blur) to look like a phone photo.
+
 ### pydantic-settings
 **What it is:** Typed settings loaded from environment variables and `.env`.
 **How we use it:** `app/config.py` — `settings.openai_api_key`, `settings.database_url`, …

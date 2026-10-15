@@ -1,0 +1,74 @@
+{
+  "slug": "listing-b",
+  "documents": [
+    "brochure.pdf",
+    "floorplan.png"
+  ],
+  "fields": {
+    "title": "Harbor View 1104",
+    "neighborhood": "Old Port",
+    "price_usd": 538000,
+    "area_m2": 84,
+    "price_per_m2": 6405,
+    "bedrooms": 2,
+    "suites": 1,
+    "bathrooms": 2,
+    "parking_spots": 2,
+    "floor": 11,
+    "condo_fee_usd": 690,
+    "property_tax_usd": 5300,
+    "amenities": {
+      "bbq_grill": true,
+      "pool": false,
+      "gym": false,
+      "gourmet_balcony": true,
+      "pet_friendly": true,
+      "elevator": true,
+      "doorman": false
+    },
+    "price_trend": [
+      {
+        "year": 2021,
+        "price_per_m2": 5400
+      },
+      {
+        "year": 2022,
+        "price_per_m2": 5750
+      },
+      {
+        "year": 2023,
+        "price_per_m2": 6050
+      },
+      {
+        "year": 2024,
+        "price_per_m2": 6300
+      },
+      {
+        "year": 2025,
+        "price_per_m2": 6550
+      }
+    ]
+  },
+  "sources": {
+    "fees": "brochure.pdf",
+    "amenities": {
+      "elevator": "brochure_text",
+      "pet_friendly": "brochure_text",
+      "bbq_grill": "floorplan",
+      "gourmet_balcony": "floorplan"
+    }
+  },
+  "expected_conflicts": [
+    {
+      "field": "bedrooms",
+      "values": [
+        2,
+        3
+      ],
+      "why": "Brochure advertises 2 bedrooms; floor plan shows 2 bedrooms plus a room labeled OFFICE that could be used as a third."
+    }
+  ],
+  "tolerances": {
+    "price_trend": 0.03
+  }
+}

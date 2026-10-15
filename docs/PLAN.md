@@ -361,7 +361,7 @@ showable (CLI + eval table).
 | assistant-ui incompatible with React 19 / Vite 8 | Check in Phase 0; pin to versions it supports |
 | VLM latency makes ingestion feel slow on video | Concurrency per listing; narration makes waiting feel intentional; edit video if needed |
 | Voice demo flaky while recording | Text-only mode (Phase 5) is a full fallback; record several takes |
-| Synthetic floor plans too easy (labels = OCR) | Include unlabeled room shapes + the "office vs bedroom" ambiguity |
+| Synthetic floor plans too easy (labels = OCR) | Real-estate shorthand labels (MBR, BR, WC) + the "office vs bedroom" ambiguity |
 | Scope creep (PyTorch, hosting, more listings) | Logged as v2 below, not done in v1 |
 
 ---
