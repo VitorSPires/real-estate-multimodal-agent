@@ -52,6 +52,19 @@ data (Phase 3), not by preference.
 
 ---
 
+## [010] Eval design: categories by source, single-model baselines
+
+**Context:** We need numbers that justify the routing, not a single "accuracy" figure.
+
+**Choice:** Score every fact against ground truth and group checks by where the fact had to be
+read from (brochure text, phone photo, floor plan, chart, conflicts). Compare the routed setup
+against "one model for everything" baselines; suggest per task the best model (cheapest on ties).
+
+**Why:** It answers the interview question "why this model for floor plans?" with data, and it
+shows where the pipeline is weak. **Limitation:** 4 listings is a smoke test, not a benchmark.
+
+---
+
 ## [009] Evidence stored inside the listing JSON
 
 **Context:** The plan listed a separate `evidence` table.

@@ -49,3 +49,15 @@
   record is always read whole; a table would add joins without new queries. → DECISIONS [009]
 - **Concurrency inside nodes with `asyncio.gather` + a semaphore (6)** instead of LangGraph's
   `Send` fan-out. Simpler to read; the graph still shows the parallel branches that matter.
+
+## Phase 3 — Evals
+
+- **Scoring by source category** (brochure text, phone photo, floor plan, chart, conflicts) instead
+  of one global number, plus single-model baselines. → DECISIONS [010]
+- **Candidate models:** 3 cheap (`claude-haiku-5.5`, `gpt-6-luna`, `gemini-3.8-flash`) + 3 strong
+  (`claude-sonnet-5.5`, `gpt-6.1-sol`, `gemini-4-argon`) from the OpenRouter catalog. Full run =
+  7 ingestions × ~21 calls; I expect well under US$ 1, but it was not run.
+- **Offline eval results are git-ignored** — they only prove the harness works. Commit the real
+  `evals/results/openrouter-latest.md` once it runs, and update `routing.py` from its suggestion.
+- **Escalation inside single-model baselines uses the same model** (so baselines show what a
+  single model really does alone).

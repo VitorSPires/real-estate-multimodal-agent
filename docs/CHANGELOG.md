@@ -5,6 +5,22 @@
 
 ---
 
+## [004] Evals and model routing (Phase 3)
+
+**What was done:**
+- `evals/score.py`: one check per fact vs. `ground_truth.json`, grouped by source category.
+- `evals/run.py`: runs the full pipeline per setup (routed + single-model baselines), writes a
+  markdown + JSON report with accuracy per category, cost, calls, escalations and time, and
+  suggests a routing per task.
+- 5 scorer tests; offline results are git-ignored (they test the harness, not models).
+
+**Why:** Phase 3 of `PLAN.md` — routing must be justified by measurements.
+
+**New concepts introduced:** eval categories, single-model baseline (decision [010]).
+**Not done:** the real eval run (no valid API key during the build — see `REVIEW-NOTES.md`).
+
+---
+
 ## [003] Ingestion graph (Phase 2)
 
 **What was done:**

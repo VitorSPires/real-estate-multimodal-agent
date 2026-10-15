@@ -18,12 +18,12 @@
 - ✅ Schema, SQLite tables, LangGraph graph with triage + escalation, cost accounting, CLI
 - 📋 First run with real models (needs a valid API key — see `REVIEW-NOTES.md`)
 
-## Phase 3 — Evals + model routing 🔜
-- 🔜 `evals/run.py`: per-field accuracy × cost × latency for 3 models
-- 📋 Routing config chosen from results; decision written in README
+## Phase 3 — Evals + model routing ✅
+- ✅ `evals/run.py` + scorer: accuracy per source category × cost × time, routing suggestion
+- 📋 Real run with OpenRouter and routing update from its results (needs key)
 
-## Phase 4 — API
-- 📋 Upload, SSE narration stream, listings, evidence crops
+## Phase 4 — API 🔜
+- 🔜 Upload, SSE narration stream, listings, evidence crops
 
 ## Phase 5 — UI (text-only)
 - 📋 Drop zone, narration panel, listing cards, evidence viewer, chat wired to the backend

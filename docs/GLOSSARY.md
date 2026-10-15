@@ -30,6 +30,12 @@ Deciding which records describe the same real-world thing.
 Retrying a reading that failed verification with a stronger (and different) model, once.
 *In this project:* the `escalate` node, model `Routing.escalation`.
 
+## B
+
+**Baseline (single-model)**
+The same pipeline with one model doing every task. The routed setup must beat it on cost, accuracy or both.
+*In this project:* `single:<model>` setups in `evals/run.py`.
+
 ## G
 
 **Ground truth**

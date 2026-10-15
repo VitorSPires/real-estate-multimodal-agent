@@ -21,3 +21,6 @@ dist/
 Thumbs.db
 .vscode/
 .idea/
+
+# Offline eval output (tests the harness, not models)
+evals/results/fake-*
