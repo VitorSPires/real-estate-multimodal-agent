@@ -3,7 +3,8 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 
-from app.api import health
+from app import models  # noqa: F401  (registers the tables before init_db)
+from app.api import health, ingestions, listings
 from app.db import init_db
 
 
@@ -16,4 +17,5 @@ async def lifespan(_: FastAPI) -> AsyncIterator[None]:
 app = FastAPI(title="real-estate-multimodal-agent", lifespan=lifespan)
 
 # Every route lives under /api; the Vite dev server proxies /api to this app.
-app.include_router(health.router, prefix="/api")
+for module in (health, ingestions, listings):
+    app.include_router(module.router, prefix="/api")

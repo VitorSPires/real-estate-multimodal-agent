@@ -5,6 +5,24 @@
 
 ---
 
+## [005] API (Phase 4)
+
+**What was done:**
+- `POST /api/ingestions` (multipart upload), `POST /api/ingestions/sample` (bundled dataset),
+  `GET /api/ingestions/{id}`, `GET /api/ingestions/{id}/events` (SSE, replay + live),
+  `GET /api/listings[/{id}]`, `GET /api/files/{path}` (evidence images, traversal-safe),
+  `POST /api/reset`; `/api/health` now reports the active LLM provider.
+- `app/ingestion_service.py` runs the graph as a background task; `app/events.py` fans out live events.
+- 7 API tests with an isolated data dir and offline answers (`tests/conftest.py`).
+
+**Why:** Phase 4 of `PLAN.md` — the UI needs uploads, a live narration stream and the listings.
+
+**New concepts introduced:** SSE with `Last-Event-ID` replay, replay-then-follow (decision [011]).
+- *Gotcha:* an SSE response can't turn into a 404 once streaming starts, so the run is validated
+  in a dependency (`existing_run`) before the generator runs.
+
+---
+
 ## [004] Evals and model routing (Phase 3)
 
 **What was done:**

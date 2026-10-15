@@ -79,6 +79,12 @@ Warping an image so a rectangle becomes a skewed quadrilateral, like a page phot
 
 ## S
 
+**SSE (Server-Sent Events)**
+A one-way stream from server to browser over a normal HTTP response (`text/event-stream`). The
+browser's `EventSource` reconnects automatically and sends the last event id it saw
+(`Last-Event-ID`), so the server can resume.
+*In this project:* `GET /api/ingestions/{id}/events` streams the pipeline narration.
+
 **Structured output**
 Asking a model to answer with JSON that matches a schema (`response_format=json_schema`), then
 validating it with Pydantic.

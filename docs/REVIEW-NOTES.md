@@ -61,3 +61,15 @@
   `evals/results/openrouter-latest.md` once it runs, and update `routing.py` from its suggestion.
 - **Escalation inside single-model baselines uses the same model** (so baselines show what a
   single model really does alone).
+
+## Phase 4 — API
+
+- **Runs are `asyncio` background tasks inside the API process** (no Celery/Redis). Fine for a
+  demo; a server restart mid-run leaves the run "running". → DECISIONS [011]
+- **SSE, not WebSocket**, for the narration (one-way stream, free reconnects with `Last-Event-ID`).
+- **Added `POST /api/ingestions/sample`** (not in the plan): ingests the bundled dataset, so a
+  visitor can try the app without having documents. The UI gets a "Try sample documents" button.
+- **Added `POST /api/reset`** to clear runs and listings between demo takes.
+- **Your local `backend/.env` has `LLM_PROVIDER=fake`** (git-ignored) because the OpenAI key is
+  invalid. Switch it to `auto` after adding valid keys.
+- Uploads limited to 30 files × 20 MB; file names are reduced to their base name (no client paths).

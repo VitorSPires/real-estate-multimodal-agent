@@ -22,11 +22,11 @@
 - ✅ `evals/run.py` + scorer: accuracy per source category × cost × time, routing suggestion
 - 📋 Real run with OpenRouter and routing update from its results (needs key)
 
-## Phase 4 — API 🔜
-- 🔜 Upload, SSE narration stream, listings, evidence crops
+## Phase 4 — API ✅
+- ✅ Upload + sample runs, SSE narration (replay + live), listings, evidence files, reset
 
-## Phase 5 — UI (text-only)
-- 📋 Drop zone, narration panel, listing cards, evidence viewer, chat wired to the backend
+## Phase 5 — UI (text-only) 🔜
+- 🔜 Drop zone, narration panel, listing cards, evidence viewer, chat wired to the backend
 
 ## Phase 6 — Voice
 - 📋 Spike against current GPT-Live docs

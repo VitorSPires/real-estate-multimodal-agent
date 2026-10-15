@@ -57,3 +57,5 @@ silently picking one.
 - Checks: `backend/app/ingestion/verify.py` · Merge & conflicts: `backend/app/ingestion/merge.py`
 - Model routing: `backend/app/ingestion/routing.py` · Prompts: `backend/app/ingestion/prompts/`
 - CLI: `python -m app.ingestion ../dataset/listings [--provider fake]`
+- API: `POST /api/ingestions` (upload) or `POST /api/ingestions/sample`, then
+  `GET /api/ingestions/{run_id}/events` (SSE) and `GET /api/listings` — `app/api/`, `app/ingestion_service.py`

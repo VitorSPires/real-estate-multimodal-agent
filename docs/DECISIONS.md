@@ -52,6 +52,25 @@ data (Phase 3), not by preference.
 
 ---
 
+## [011] Runs as in-process background tasks; events stored + streamed over SSE
+
+**Context:** An upload starts a ~30 s pipeline whose narration the UI must show live, and a page
+reload must not lose it.
+
+**Options considered:**
+- **Job queue (Celery/RQ + Redis)** — production-grade, but a second process and a broker for a local demo.
+- **`asyncio.create_task` in the API process** — no extra infrastructure; runs die if the server restarts.
+- **WebSocket vs. SSE** — the stream is one-way (server → browser), so SSE is enough and reconnects for free.
+
+**Choice:** Background `asyncio` tasks; every event is written to the `events` table AND pushed to
+in-memory subscribers. `GET /events` replays stored events (after `Last-Event-ID`), then follows
+the live stream.
+
+**Why:** Zero extra infrastructure, reload-safe narration, and the code shows the replay-then-follow
+pattern clearly. **Limitation:** single process only; a restart mid-run leaves it "running".
+
+---
+
 ## [010] Eval design: categories by source, single-model baselines
 
 **Context:** We need numbers that justify the routing, not a single "accuracy" figure.

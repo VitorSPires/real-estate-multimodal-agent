@@ -11,6 +11,7 @@ def health() -> dict:
     return {
         "status": "ok",
         "environment": settings.environment,
+        "llm_provider": settings.resolved_llm_provider,
         "openai_configured": bool(settings.openai_api_key),
         "openrouter_configured": bool(settings.openrouter_api_key),
     }

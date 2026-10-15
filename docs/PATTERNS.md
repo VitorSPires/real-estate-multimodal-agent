@@ -24,6 +24,17 @@ settings = Settings()
 **What it is:** FastAPI's lifespan context runs code once before the app serves requests.
 **In the project:** `app/main.py` calls `init_db()` there to create the data folder and tables.
 
+### Replay, then follow (event streams)
+**What it is:** Store every event, and when a client connects: subscribe to live events first,
+replay what's stored, then forward live events newer than the last replayed id.
+**Why:** A late or reconnecting browser sees the whole run without gaps or duplicates.
+**In the project:** `app/api/ingestions.py` → `events()`; `app/events.py`; `app/store.add_event`.
+
+### Validate before streaming
+**What it is:** Check inputs in a FastAPI dependency, because a streaming response can't change its
+status code after it starts.
+**In the project:** `existing_run` in `app/api/ingestions.py`.
+
 ## Frontend
 
 ### Feature folders
