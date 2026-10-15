@@ -28,12 +28,12 @@
 ## Phase 5 — UI (text-only) ✅
 - ✅ Drop zone + samples, narration panel, listing cards, evidence viewer, chat with tools
 
-## Phase 6 — Voice 🔜
-- 🔜 Spike against current GPT-Live docs
-- 📋 `/api/live/session` (SDP proxy) + `/api/live/tools`, `useLiveSession` hook, voice orb
+## Phase 6 — Voice ✅
+- ✅ `/api/live/session` + `/api/live/tools`, `useLiveSession`, call controls in the composer
+- 📋 First real call (needs a valid OpenAI key + microphone — see `REVIEW-NOTES.md`)
 
-## Phase 7 — Polish + video
-- 📋 README story, architecture doc, eval table, recorded demo video
+## Phase 7 — Polish + video 🔜
+- 🔜 README story, architecture doc, eval table, recorded demo video
 
 ## Future 💡
 - 💡 CLIP + small PyTorch head as a local region classifier (cheaper routing)

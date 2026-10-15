@@ -5,6 +5,27 @@
 
 ---
 
+## [007] Voice with GPT-Live-1 (Phase 6)
+
+**What was done:**
+- Backend: `app/live/session.py` (Live session config: voice instructions, delegation to a
+  Responses model with the conversation tools), `POST /api/live/session` (SDP exchange via the
+  OpenAI SDK, key stays server-side), `POST /api/live/tools` (tool relay); 4 tests with a stubbed SDK.
+- Frontend: `useLiveSession` (mic, WebRTC, data channel, transcripts by speaker/pause, tool relay,
+  mute, hang up), `VoiceControls` in the composer (via a new `ComposerActions` slot in the vendored
+  `thread.aui.tsx`), voice transcripts and tool calls appended to the same thread.
+- Settings `VOICE_NAME` (default `marin`) and `VOICE_BACKEND_MODEL` (default `gpt-5.6-terra`).
+
+**Why:** Phase 6 of `PLAN.md`.
+
+**New concepts introduced:** WebRTC, SDP, delegation (see `GLOSSARY.md`); decision [014].
+
+**Not verified:** a real voice conversation — the OpenAI key available during the build is
+rejected, and the browser pane blocks the microphone. Verified: the session request reaches
+OpenAI (401 from the key), the tool relay, error states, and the UI states up to the mic prompt.
+
+---
+
 ## [006] Text-only UI wired to the backend (Phase 5)
 
 **What was done:**

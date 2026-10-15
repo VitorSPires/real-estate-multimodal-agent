@@ -52,6 +52,12 @@ evidence viewer, `filter_listings` highlights the matching cards.
 **Why:** The voice/text model doesn't need a separate "UI channel"; whatever it looks up, the user sees.
 **In the project:** `onStep` in `frontend/src/App.tsx`.
 
+### Slots in vendored components
+**What it is:** When a copied-in component needs app-specific content, add a small, commented slot
+instead of rewriting it.
+**In the project:** `ThreadComponents.ComposerActions` in `components/assistant-ui/thread.aui.tsx`
+renders `VoiceControls`; the voice state reaches it through `VoiceContext`.
+
 ### Adding assistant-ui components
 **What it is:** Components come from the assistant-ui registry through the shadcn CLI:
 `npx shadcn@latest add https://r.assistant-ui.com/<name>.json`.

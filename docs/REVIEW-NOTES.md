@@ -91,3 +91,23 @@
 - **Starter suggestions disappear after the first message** (they'd be stale).
 - **Floor-plan evidence highlights the whole image**, not the BBQ symbol itself: vision readings
   don't return coordinates. Possible upgrade: ask the model for a bounding box per amenity.
+
+## Phase 6 — Voice
+
+- **Not verified end to end** (invalid key + the browser pane blocks the mic). What *is* verified:
+  `client.live.create` reaches OpenAI (it answered 401 for the key), the tool relay, error states,
+  and the UI up to the microphone prompt. **First thing to test with a valid key.**
+- **Session created with the OpenAI SDK** (`client.live.create`), not a raw HTTP call; event names
+  taken from the SDK's types (transcripts are delta-only — there is no `.done` event, so turns are
+  split on speaker change or a 1.2 s pause). → DECISIONS [014]
+- **Tools relayed by the browser** (like your PoC) rather than a server sideband connection. The
+  UI reacts to results for free; sideband is the production upgrade.
+- **Defaults:** voice `marin` (SDK default), delegated model `gpt-5.6-terra` (the one your PoC
+  used successfully). Both configurable (`VOICE_NAME`, `VOICE_BACKEND_MODEL`).
+- **Greeting:** on `session.started` the app appends an instruction asking for a one-sentence greeting.
+- **Typed messages during a call go to the text chat**, not into the voice session. The two
+  "brains" don't share context — acceptable for the demo script (talk *or* type), worth unifying later.
+- **Voice controls live in the composer** via a small slot added to the vendored `thread.aui.tsx`
+  (instead of assistant-ui's own voice runtime, which expects its own adapter).
+- **No frontend unit tests** (no test runner set up in the frontend); voice logic is only typed and
+  built. A Vitest suite for `useLiveSession`'s event handling would be a good follow-up.

@@ -90,6 +90,8 @@ const reasoningDuration = (timing: ThreadGroupPart["timing"]) =>
  */
 export type ThreadComponents = {
   AssistantMessage?: ComponentType | undefined;
+  /** ListingLens: extra controls in the composer's action bar (the voice call button). */
+  ComposerActions?: ComponentType | undefined;
   Welcome?: ComponentType | undefined;
   ToolFallback?: ToolCallMessagePartComponent | undefined;
   ToolGroup?:
@@ -526,10 +528,13 @@ const ComposerAction: FC = () => {
       !(s.thread.isRunning && s.thread.capabilities.cancel),
   );
 
+  const { ComposerActions } = useContext(ThreadComponentsContext);
+
   return (
     <div className="aui-composer-action-wrapper relative flex items-center justify-between">
       <ComposerAddAttachment />
       <div className="flex items-center gap-1.5">
+        {ComposerActions && <ComposerActions />}
         <AuiIf condition={(s) => s.thread.capabilities.dictation}>
           <AuiIf condition={(s) => s.composer.dictation == null}>
             <ComposerPrimitive.Dictate asChild>

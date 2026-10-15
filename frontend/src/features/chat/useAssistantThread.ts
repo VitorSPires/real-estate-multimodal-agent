@@ -1,7 +1,8 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useMemo, useRef, useState } from 'react'
 import { useExternalStoreRuntime, type AppendMessage, type ThreadMessageLike } from '@assistant-ui/react'
 
 import type { IngestionRun } from '@/features/ingestion/useIngestion'
+import type { Speaker } from '@/features/voice/useLiveSession'
 import { api, type ChatStep, type ListingRecord } from '@/lib/api'
 
 /** One entry of the conversation timeline. Ingestion runs appear in the thread where they started. */
@@ -30,13 +31,34 @@ export function useAssistantThread({ runs, listings, onStep }: Options) {
     setTimeline((current) => [...current, { kind: 'run', runId }])
   }, [])
 
-  /** Voice transcripts and tool calls land in the same thread as typed messages. */
-  const addEntry = useCallback((entry: TimelineEntry) => {
+  // --- Voice: transcripts and tool calls land in the same thread as typed messages -------------
+  const voiceTurn = useRef<{ speaker: Speaker; id: string; hasText: boolean } | undefined>(undefined)
+
+  const startVoiceTurn = (speaker: Speaker, text: string, steps: ChatStep[] = []) => {
+    const id = crypto.randomUUID()
+    voiceTurn.current = { speaker, id, hasText: text.length > 0 }
+    const entry: TimelineEntry =
+      speaker === 'user' ? { kind: 'user', id, text, via: 'voice' } : { kind: 'assistant', id, text, steps, via: 'voice' }
     setTimeline((current) => [...current, entry])
+  }
+
+  const changeVoiceTurn = (change: (entry: TimelineEntry) => TimelineEntry) => {
+    const id = voiceTurn.current?.id
+    setTimeline((current) => current.map((entry) => (entry.kind !== 'run' && entry.id === id ? change(entry) : entry)))
+  }
+
+  const addVoiceTranscript = useCallback((speaker: Speaker, delta: string, newTurn: boolean) => {
+    const turn = voiceTurn.current
+    // An assistant turn opened by a tool call (no words yet) takes the words that follow it.
+    const continues = turn?.speaker === speaker && (!newTurn || (speaker === 'assistant' && !turn.hasText))
+    if (!continues) return startVoiceTurn(speaker, delta)
+    turn.hasText = true
+    changeVoiceTurn((entry) => (entry.kind === 'run' ? entry : { ...entry, text: entry.text + delta }))
   }, [])
 
-  const updateEntry = useCallback((id: string, change: (entry: TimelineEntry) => TimelineEntry) => {
-    setTimeline((current) => current.map((entry) => (entry.kind !== 'run' && entry.id === id ? change(entry) : entry)))
+  const addVoiceStep = useCallback((step: ChatStep) => {
+    if (voiceTurn.current?.speaker !== 'assistant') return startVoiceTurn('assistant', '', [step])
+    changeVoiceTurn((entry) => (entry.kind === 'assistant' ? { ...entry, steps: [...entry.steps, step] } : entry))
   }, [])
 
   const onNew = useCallback(
@@ -90,7 +112,7 @@ export function useAssistantThread({ runs, listings, onStep }: Options) {
       : [],
   })
 
-  return { runtime, timeline, addRun, addEntry, updateEntry }
+  return { runtime, addRun, addVoiceTranscript, addVoiceStep }
 }
 
 function toMessage(entry: TimelineEntry, runs: IngestionRun[], listings: ListingRecord[]): ThreadMessageLike | null {
@@ -108,7 +130,7 @@ function toMessage(entry: TimelineEntry, runs: IngestionRun[], listings: Listing
           args: step.arguments as never,
           result: step.result,
         })),
-        { type: 'text' as const, text: entry.text },
+        ...(entry.text ? [{ type: 'text' as const, text: entry.text }] : []),
       ],
     }
   }

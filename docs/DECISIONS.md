@@ -52,6 +52,26 @@ data (Phase 3), not by preference.
 
 ---
 
+## [014] Voice: server-side session creation, browser-relayed tools
+
+**Context:** GPT-Live-1 runs over WebRTC between the browser and OpenAI; tools must run where the data is.
+
+**Options considered:**
+- **Ephemeral token in the browser** — the browser creates the session itself; one more moving part.
+- **Server creates the session from the browser's SDP offer** — the key stays on the server, no token flow.
+- **Tools via a trusted sideband connection** (server ↔ OpenAI) vs. **relayed by the browser** over the data channel.
+
+**Choice:** `POST /api/live/session` creates the session with `client.live.create` (OpenAI SDK)
+and returns the SDP answer. Delegation goes to a Responses model with our tools; the browser
+relays tool calls to `POST /api/live/tools` and sends results back on the data channel.
+
+**Why:** Simplest secure setup (no key or token in the browser), and relaying through the browser
+lets the UI react to every tool result for free. **Trade-off:** a malicious page user could send
+fake tool results to their own session — acceptable for a single-user demo; a sideband connection
+is the production-grade upgrade.
+
+---
+
 ## [013] One thread for narration, typed chat and (later) voice
 
 **Context:** The user should see the pipeline narration, the conversation and the tool calls in one place.

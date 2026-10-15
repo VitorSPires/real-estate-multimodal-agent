@@ -23,6 +23,10 @@ class Settings(BaseSettings):
     fake_responses: Path = BACKEND_DIR / "app" / "ingestion" / "fakes" / "dataset_responses.json"
     chat_model: str = ""  # empty = provider default (see app/assistant/chat.py)
 
+    # Voice (GPT-Live-1, OpenAI only)
+    voice_name: str = "marin"
+    voice_backend_model: str = "gpt-5.6-terra"  # the Responses model the Live session delegates to
+
     @property
     def resolved_llm_provider(self) -> str:
         if self.llm_provider != "auto":

@@ -4,7 +4,18 @@
 
 ---
 
+## B
+
+**Baseline (single-model)**
+The same pipeline with one model doing every task. The routed setup must beat it on cost, accuracy or both.
+*In this project:* `single:<model>` setups in `evals/run.py`.
+
 ## D
+
+**Delegation (GPT-Live)**
+The voice model hands "thinking" work to another model. With `delegation.type = "responses"`, a
+Responses model receives the task, can call our tools, and gives the voice model what to say.
+*In this project:* `app/live/session.py` → `session_config()`.
 
 **Dev proxy**
 In development the frontend (port 5173) and the API (port 8000) are different servers. Instead of
@@ -14,14 +25,6 @@ own address and Vite forwards the request to FastAPI.
 
 ## E
 
-**External store runtime**
-An assistant-ui mode where the chat component doesn't manage messages itself: it renders whatever
-list *we* keep in React state and calls us back when the user sends something.
-*In this project:* `useExternalStoreRuntime` in `frontend/src/App.tsx`. Later, ingestion
-narration and voice transcripts will be appended to that same list.
-
-## E (cont.)
-
 **Entity resolution**
 Deciding which records describe the same real-world thing.
 *In this project:* `merge.listing_key` matches "HARBOR VIEW 1104" (floor plan) with "Harbor View 1104" (brochure).
@@ -30,11 +33,11 @@ Deciding which records describe the same real-world thing.
 Retrying a reading that failed verification with a stronger (and different) model, once.
 *In this project:* the `escalate` node, model `Routing.escalation`.
 
-## B
-
-**Baseline (single-model)**
-The same pipeline with one model doing every task. The routed setup must beat it on cost, accuracy or both.
-*In this project:* `single:<model>` setups in `evals/run.py`.
+**External store runtime**
+An assistant-ui mode where the chat component doesn't manage messages itself: it renders whatever
+list *we* keep in React state and calls us back when the user sends something.
+*In this project:* `useExternalStoreRuntime` in `frontend/src/App.tsx`. Later, ingestion
+narration and voice transcripts will be appended to that same list.
 
 ## G
 
@@ -79,6 +82,15 @@ Warping an image so a rectangle becomes a skewed quadrilateral, like a page phot
 
 ## S
 
+**SDP (Session Description Protocol)**
+The text a WebRTC peer sends to describe its connection (codecs, network candidates). The browser
+creates an *offer*; the other side replies with an *answer*.
+*In this project:* the browser's offer goes to `POST /api/live/session`, which returns OpenAI's answer.
+
+**SQLite**
+A database stored in a single file, no server needed.
+*In this project:* `backend/data/app.db`, created automatically on startup.
+
 **SSE (Server-Sent Events)**
 A one-way stream from server to browser over a normal HTTP response (`text/event-stream`). The
 browser's `EventSource` reconnects automatically and sends the last event id it saw
@@ -90,12 +102,15 @@ Asking a model to answer with JSON that matches a schema (`response_format=json_
 validating it with Pydantic.
 *In this project:* `llm.complete_json(..., schema=TextExtraction)`.
 
-**SQLite**
-A database stored in a single file, no server needed.
-*In this project:* `backend/data/app.db`, created automatically on startup.
-
 ## T
 
 **Triage**
 A cheap first look that decides where something goes next.
 *In this project:* `triage_images` classifies each image (floor plan, chart, document photo, property photo).
+
+## W
+
+**WebRTC**
+Browser technology for real-time audio/video between two peers, plus *data channels* for
+messages. Used here for the voice call with GPT-Live-1.
+*In this project:* `frontend/src/features/voice/useLiveSession.ts`.
