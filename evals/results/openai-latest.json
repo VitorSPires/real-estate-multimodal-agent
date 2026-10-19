@@ -1,0 +1,80 @@
+[
+  {
+    "setup": "routed",
+    "routing": {
+      "text": "openai/gpt-6-luna",
+      "triage": "openai/gpt-6-luna",
+      "floor_plan": "openai/gpt-6.1-sol",
+      "chart": "openai/gpt-6.1-sol",
+      "document_photo": "openai/gpt-6.1-sol",
+      "escalation": "openai/gpt-6-astra"
+    },
+    "accuracy": 1.0,
+    "by_category": {
+      "amenity_from_floorplan": 1.0,
+      "amenity_from_text": 1.0,
+      "brochure_text": 1.0,
+      "chart": 1.0,
+      "conflict": 1.0,
+      "fees": 1.0,
+      "fees_from_photo": 1.0
+    },
+    "cost_usd": 0.037462,
+    "calls": 20,
+    "escalations": 0,
+    "wall_s": 20.5,
+    "failures": []
+  },
+  {
+    "setup": "single:openai/gpt-6-luna",
+    "routing": {
+      "text": "openai/gpt-6-luna",
+      "triage": "openai/gpt-6-luna",
+      "floor_plan": "openai/gpt-6-luna",
+      "chart": "openai/gpt-6-luna",
+      "document_photo": "openai/gpt-6-luna",
+      "escalation": "openai/gpt-6-luna"
+    },
+    "accuracy": 1.0,
+    "by_category": {
+      "amenity_from_floorplan": 1.0,
+      "amenity_from_text": 1.0,
+      "brochure_text": 1.0,
+      "chart": 1.0,
+      "conflict": 1.0,
+      "fees": 1.0,
+      "fees_from_photo": 1.0
+    },
+    "cost_usd": 0.005031,
+    "calls": 20,
+    "escalations": 0,
+    "wall_s": 30.8,
+    "failures": []
+  },
+  {
+    "setup": "single:openai/gpt-6.1-sol",
+    "routing": {
+      "text": "openai/gpt-6.1-sol",
+      "triage": "openai/gpt-6.1-sol",
+      "floor_plan": "openai/gpt-6.1-sol",
+      "chart": "openai/gpt-6.1-sol",
+      "document_photo": "openai/gpt-6.1-sol",
+      "escalation": "openai/gpt-6.1-sol"
+    },
+    "accuracy": 1.0,
+    "by_category": {
+      "amenity_from_floorplan": 1.0,
+      "amenity_from_text": 1.0,
+      "brochure_text": 1.0,
+      "chart": 1.0,
+      "conflict": 1.0,
+      "fees": 1.0,
+      "fees_from_photo": 1.0
+    },
+    "cost_usd": 0.085798,
+    "calls": 20,
+    "escalations": 0,
+    "wall_s": 14.4,
+    "failures": []
+  }
+]

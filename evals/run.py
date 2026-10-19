@@ -40,7 +40,10 @@ async def evaluate(name: str, routing: Routing, provider: str | None) -> dict:
 
     started = time.perf_counter()
     with tempfile.TemporaryDirectory() as work:
-        state = await run_ingestion(paths, llm=llm, routing=routing, work_dir=Path(work), data_dir=Path(work))
+        try:
+            state = await run_ingestion(paths, llm=llm, routing=routing, work_dir=Path(work), data_dir=Path(work))
+        finally:
+            await llm.aclose()
     wall_s = time.perf_counter() - started
 
     records = {listing.title.lower(): listing.model_dump(mode="json") for listing in state.get("listings", [])}
@@ -112,10 +115,12 @@ def main() -> None:
     sys.stdout.reconfigure(encoding="utf-8")
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--provider", choices=["openrouter", "openai", "fake"], help="override LLM_PROVIDER")
-    parser.add_argument("--models", nargs="*", default=list(CANDIDATES), help="single-model baselines to run")
+    parser.add_argument("--models", nargs="*", help="single-model baselines to run (default: every candidate the provider can reach)")
     args = parser.parse_args()
 
     provider = args.provider or settings.resolved_llm_provider
+    if args.models is None:  # OpenAI direct can only reach openai/* models
+        args.models = [m for m in CANDIDATES if provider != "openai" or m.startswith("openai/")]
     setups = [("routed", default_routing(provider))] + [(f"single:{m}", Routing.single_model(m)) for m in args.models]
 
     results = []

@@ -52,6 +52,20 @@ data (Phase 3), not by preference.
 
 ---
 
+## [015] backend/.env wins over OS environment variables; tests disable it
+
+**Context:** On the first real run, a stale `OPENAI_API_KEY` set globally in Windows silently
+shadowed the valid key in `backend/.env` (pydantic-settings prefers environment variables).
+
+**Choice:** `Settings.settings_customise_sources` puts the `.env` file before environment
+variables. `ENV_FILE=""` disables the file; `tests/conftest.py` sets it and blanks the keys.
+
+**Why:** The README tells people to put keys in `backend/.env`; that must be the source of truth
+for this project. The test guard matters: when `.env` started winning, tests briefly picked up the
+real key and called OpenAI.
+
+---
+
 ## [014] Voice: server-side session creation, browser-relayed tools
 
 **Context:** GPT-Live-1 runs over WebRTC between the browser and OpenAI; tools must run where the data is.

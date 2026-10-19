@@ -26,7 +26,7 @@ PRICES: dict[str, tuple[float, float]] = {
     "anthropic/claude-sonnet-5.5": (2.0, 10.0),
     "openai/gpt-6-luna": (0.10, 0.50),
     "openai/gpt-6.1-sol": (2.0, 10.0),
-    "openai/gpt-6.1-sol-pro": (2.0, 10.0),
+    "openai/gpt-6-astra": (10.0, 50.0),
     "google/gemini-3.8-flash": (0.75, 3.75),
     "google/gemini-4-argon": (2.0, 10.0),
 }
@@ -62,6 +62,8 @@ class LLMClient(Protocol):
         """Ask `model` for an answer matching `schema`. `call_key` names the call (logs, fakes)."""
         ...
 
+    async def aclose(self) -> None: ...
+
 
 class OpenAICompatibleClient:
     def __init__(self, provider: str, api_key: str):
@@ -83,31 +85,36 @@ class OpenAICompatibleClient:
         content += [{"type": "image_url", "image_url": {"url": _data_url(path)}} for path in images]
 
         started = time.perf_counter()
-        response = await self._client.chat.completions.create(
+        # `parse` sends the Pydantic model as a *strict* JSON schema, so the model must answer with
+        # exactly that shape. (A non-strict schema let gpt-6-luna sometimes echo the schema itself.)
+        response = await self._client.chat.completions.parse(
             model=self._model_name(model),
             messages=[{"role": "system", "content": system}, {"role": "user", "content": content}],
-            response_format={
-                "type": "json_schema",
-                "json_schema": {"name": schema.__name__, "schema": schema.model_json_schema()},
-            },
-            temperature=0,
+            response_format=schema,
+            # No `temperature`: reasoning models (gpt-6 family) only accept the default.
             # OpenRouter adds the exact cost of the call to `usage` when asked.
             extra_body={"usage": {"include": True}} if self.provider == "openrouter" else None,
         )
         latency_ms = int((time.perf_counter() - started) * 1000)
 
-        text = response.choices[0].message.content or ""
+        message = response.choices[0].message
+        if message.refusal:
+            raise LLMError(f"{call_key}: model refused ({message.refusal[:100]})")
         usage = response.usage
         input_tokens = usage.prompt_tokens if usage else 0
         output_tokens = usage.completion_tokens if usage else 0
         return LLMResult(
-            parsed=parse_json_output(text, schema, call_key),
+            parsed=message.parsed or parse_json_output(message.content or "", schema, call_key),
             model=model,
             input_tokens=input_tokens,
             output_tokens=output_tokens,
             cost_usd=_reported_cost(usage) or estimate_cost(model, input_tokens, output_tokens),
             latency_ms=latency_ms,
         )
+
+    async def aclose(self) -> None:
+        """Close the HTTP client while its event loop is still running."""
+        await self._client.close()
 
     def _model_name(self, model: str) -> str:
         """Routing uses OpenRouter ids ('openai/gpt-6-luna'); OpenAI direct wants 'gpt-6-luna'."""
@@ -127,6 +134,9 @@ class FakeLLMClient:
     def __init__(self, responses: dict[str, dict]):
         self.responses = responses
         self.calls: list[tuple[str, str]] = []  # (call_key, model), for assertions in tests
+
+    async def aclose(self) -> None:
+        pass
 
     @classmethod
     def from_file(cls, path: Path) -> "FakeLLMClient":

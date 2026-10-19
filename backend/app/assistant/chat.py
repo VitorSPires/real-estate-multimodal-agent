@@ -40,7 +40,7 @@ async def chat(messages: list[dict], settings: Settings) -> ChatTurn:
     steps: list[dict] = []
     for _ in range(MAX_TOOL_ROUNDS):
         response = await client.chat.completions.create(
-            model=model, messages=history, tools=chat_completions_definitions(), temperature=0.2,
+            model=model, messages=history, tools=chat_completions_definitions(),
         )
         message = response.choices[0].message
         if not message.tool_calls:

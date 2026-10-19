@@ -10,3 +10,6 @@ _data_dir = tempfile.mkdtemp(prefix="rema-tests-")
 os.environ["DATA_DIR"] = _data_dir
 os.environ["DATABASE_URL"] = f"sqlite:///{_data_dir}/test.db"
 os.environ["LLM_PROVIDER"] = "fake"
+os.environ["ENV_FILE"] = ""  # ignore backend/.env: tests must never use real API keys
+os.environ["OPENAI_API_KEY"] = ""
+os.environ["OPENROUTER_API_KEY"] = ""

@@ -1,7 +1,8 @@
+import os
 from pathlib import Path
 from typing import Literal
 
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic_settings import BaseSettings, PydanticBaseSettingsSource, SettingsConfigDict
 
 BACKEND_DIR = Path(__file__).resolve().parent.parent
 
@@ -9,7 +10,8 @@ BACKEND_DIR = Path(__file__).resolve().parent.parent
 class Settings(BaseSettings):
     """App settings, read from environment variables or backend/.env."""
 
-    model_config = SettingsConfigDict(env_file=BACKEND_DIR / ".env", extra="ignore")
+    # ENV_FILE="" disables the .env file (tests do this so they can never pick up real keys).
+    model_config = SettingsConfigDict(env_file=os.environ.get("ENV_FILE", BACKEND_DIR / ".env") or None, extra="ignore")
 
     environment: str = "development"
     database_url: str = f"sqlite:///{BACKEND_DIR / 'data' / 'app.db'}"
@@ -26,6 +28,14 @@ class Settings(BaseSettings):
     # Voice (GPT-Live-1, OpenAI only)
     voice_name: str = "marin"
     voice_backend_model: str = "gpt-5.6-terra"  # the Responses model the Live session delegates to
+
+    @classmethod
+    def settings_customise_sources(
+        cls, settings_cls, init_settings, env_settings, dotenv_settings, file_secret_settings,
+    ) -> tuple[PydanticBaseSettingsSource, ...]:
+        """backend/.env wins over OS environment variables: a stale key set globally on the machine
+        must not silently shadow the one configured for this project."""
+        return init_settings, dotenv_settings, env_settings, file_secret_settings
 
     @property
     def resolved_llm_provider(self) -> str:

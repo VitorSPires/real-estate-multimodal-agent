@@ -34,7 +34,7 @@ OPENAI_ONLY = Routing(
     floor_plan="openai/gpt-6.1-sol",
     chart="openai/gpt-6.1-sol",
     document_photo="openai/gpt-6.1-sol",
-    escalation="openai/gpt-6.1-sol-pro",
+    escalation="openai/gpt-6-astra",  # strongest OpenAI model; only used for failed readings
 )
 
 

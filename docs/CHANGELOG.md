@@ -5,6 +5,31 @@
 
 ---
 
+## [009] First real-model run (OpenAI) and the fixes it needed
+
+**What was done:**
+- First ingestion with real models (OpenAI direct): 4 listings, 20 calls, US$ 0.037, both designed
+  conflicts detected, fees read from the tilted photo, BBQ found on the floor plan.
+- Fixes found by that run:
+  - `backend/.env` now wins over OS environment variables (a stale global key was shadowing it);
+    tests disable the `.env` file so they can never use real keys (decision [015]).
+  - No `temperature` in requests: gpt-6 models only accept the default (400 otherwise).
+  - Structured outputs in **strict** mode via `chat.completions.parse(response_format=Model)`:
+    with a non-strict schema, gpt-6-luna sometimes returned the schema itself.
+  - Prompt: "Parking: None" means 0, not null (the only eval failure, now fixed).
+  - OpenAI-only escalation model: `gpt-6-astra` (`gpt-6.1-sol-pro` doesn't exist).
+  - Evals pick only reachable candidates (OpenAI-only without an OpenRouter key) and close the
+    HTTP client before the event loop ends.
+- First real eval (`evals/results/openai-latest.md`): routed, gpt-6-luna alone and gpt-6.1-sol
+  alone all reach 100%; gpt-6-luna costs US$ 0.005 per run vs 0.038 routed.
+
+**Why:** Verify the pipeline against real models, as planned after the offline build.
+
+**New concepts introduced:** strict structured outputs; benchmark saturation (every setup at 100%
+means the dataset can't separate models yet).
+
+---
+
 ## [008] README, architecture, video script (Phase 7)
 
 **What was done:**
