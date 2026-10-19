@@ -34,7 +34,13 @@
 
 ## Phase 7 — Polish + video ✅ (video pending)
 - ✅ README with screenshots, `architecture.md`, `VIDEO-SCRIPT.md`
-- 🔜 With valid keys: real ingestion run → eval run → update routing + README table → first voice call → record the video
+- ✅ Real ingestion + eval (OpenAI) → cheap-first routing → README table and real screenshots
+- 🔜 First real voice call (needs Vitor's microphone) → record the video → publish on GitHub
+
+## Next 💡
+- 💡 Stress set: 2–3 harder documents (unlabeled floor plan, worse photo, denser chart) to see where
+  the cheap model breaks and the escalation earns its keep
+- 💡 Run the eval with OpenRouter (Claude / Gemini) once a key is available
 
 ## Future 💡
 - 💡 CLIP + small PyTorch head as a local region classifier (cheaper routing)

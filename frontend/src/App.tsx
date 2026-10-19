@@ -131,7 +131,7 @@ export default function App() {
                   </Button>
                 )}
               </aside>
-              <section className="min-h-0">
+              <section className="min-h-0" aria-busy={thread.isSending}>
                 <Thread components={{ Welcome, ComposerActions: VoiceControls }} />
               </section>
             </main>

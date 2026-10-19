@@ -1,11 +1,12 @@
 """Run the ingestion pipeline over the dataset with several model setups and score each one.
 
-    backend/.venv/Scripts/python -m evals.run                         # routed + single-model baselines
+    backend/.venv/Scripts/python -m evals.run                         # both strategies + single-model baselines
     backend/.venv/Scripts/python -m evals.run --models anthropic/claude-haiku-5.5 openai/gpt-6-luna
     backend/.venv/Scripts/python -m evals.run --provider fake         # offline: tests the harness only
 
 Writes evals/results/<provider>-latest.{json,md}. Each setup is one full ingestion of all documents:
-"routed" uses app.ingestion.routing.Routing; "single:<model>" uses one model for every task.
+"cheap-first" is the default routing, "cautious" puts strong models on the hard inputs (both in
+app/ingestion/routing.py); "single:<model>" uses one model for every task, escalation included.
 """
 
 import argparse
@@ -21,7 +22,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "backend"))  # evals live next to backend/, import its `app` package
 
 from app.config import settings  # noqa: E402
-from app.ingestion.routing import Routing, default_routing  # noqa: E402
+from app.ingestion.routing import Routing, cautious_routing, default_routing  # noqa: E402
 from app.ingestion.runner import build_llm, run_ingestion  # noqa: E402
 from evals.score import CATEGORY_TASK, Check, accuracy, score_listing  # noqa: E402
 
@@ -121,7 +122,8 @@ def main() -> None:
     provider = args.provider or settings.resolved_llm_provider
     if args.models is None:  # OpenAI direct can only reach openai/* models
         args.models = [m for m in CANDIDATES if provider != "openai" or m.startswith("openai/")]
-    setups = [("routed", default_routing(provider))] + [(f"single:{m}", Routing.single_model(m)) for m in args.models]
+    setups = [("cheap-first (default)", default_routing(provider)), ("cautious", cautious_routing(provider))]
+    setups += [(f"single:{m}", Routing.single_model(m)) for m in args.models]
 
     results = []
     for name, routing in setups:

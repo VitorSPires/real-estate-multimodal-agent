@@ -4,22 +4,21 @@
 > Each item says **what I decided**, **why**, and **what to check**. Full ADRs live in
 > `DECISIONS.md`; this file is the short checklist for our review session.
 
-## TL;DR — where things stand
+## TL;DR — where things stand (updated 2026-10-19)
 
-- **Phases 0–7 are built and committed**; backend 42 tests, dataset 9, evals 5, frontend builds
-  clean. The whole demo works end to end **in offline mode** (canned model answers).
-- **Nothing has run against a real model yet** — your OpenAI key is rejected and there's no
-  OpenRouter key. Everything model-facing is implemented against the SDKs' real types and tested
-  with stubs.
-- **To finish, in order:**
-  1. Put valid keys in `backend/.env` and set `LLM_PROVIDER=auto`.
-  2. `cd backend && .venv/Scripts/python -m app.ingestion ../dataset/listings` — first real run.
-     Expect to tune prompts if a model reads something differently.
-  3. `backend/.venv/Scripts/python -m evals.run` → commit `evals/results/openrouter-latest.md`,
-     update `routing.py` from its suggestion, paste the table into the README.
-  4. Click **Talk** in the app — first real voice call (see Phase 6 notes).
-  5. Record the video with `docs/VIDEO-SCRIPT.md`.
-  6. Delete `open-source/_temp/` before pushing; create the GitHub repo.
+- **Phases 0–7 built; real-model run done with OpenAI** (Vitor's key in `backend/.env`).
+  Ingestion: 100% vs. ground truth at ~US$ 0.005/run with the cheap-first routing. Chat: real
+  model, 4–6 s per answer. README has the real eval table and real screenshots.
+- **Routing changed after measuring:** cheap-first is the default (DECISIONS [016]); text chat uses
+  the Responses API with `gpt-6-luna` (DECISIONS [017]).
+- **Still to do:**
+  1. First real **voice** call (needs your microphone): `_run\win.bat` → http://localhost:5173 in
+     Chrome → *Try sample documents* → **Talk**.
+  2. Record the video with `docs/VIDEO-SCRIPT.md`.
+  3. Delete `open-source/_temp/` and `open-source/open-source.sln`, create the GitHub repo, push.
+  4. Optional: remove the stale `OPENAI_API_KEY` from the Windows user environment.
+
+> The sections below are the decision log from the autonomous build (2026-10-14), kept as written.
 
 ---
 

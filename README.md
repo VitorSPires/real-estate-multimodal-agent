@@ -19,7 +19,7 @@ pick an apartment in a real-time conversation.
 | **Document intelligence** | PDF text layer read for free with PyMuPDF; embedded images, floor plans and a tilted, blurry phone photo read by vision models |
 | **LLM orchestration** | LangGraph ingestion graph: parallel branches, image triage, verification, one escalation to a different provider, merge |
 | **Evidence, not vibes** | Every fact keeps its document, page, highlight box, quote, method and model; disagreements between documents are kept as conflicts |
-| **Cost-aware routing** | Native text never hits a vision model; cheap model triages images; strong models only for floor plans, charts and photos; cost logged per call |
+| **Cost-aware routing** | Native text never hits a vision model; a cheap model reads everything and a strong one only retries readings that fail verification — chosen by eval (7.8× cheaper than the cautious design, same accuracy); cost logged per call |
 | **Evals** | Synthetic dataset with exact ground truth and designed traps; accuracy per source type × cost per model setup |
 | **Real-time voice** | OpenAI GPT-Live-1 over WebRTC, delegating to a backend model that calls the same deterministic tools as the text chat |
 
@@ -43,10 +43,11 @@ flowchart LR
 
 1. **Read cheaply first.** A brochure's text layer is free. Images are triaged by a cheap vision
    call; decorative photos stop there.
-2. **Read hard things with the right model.** Floor plans, charts and photos of documents go to
-   the model the routing assigns (`backend/app/ingestion/routing.py`).
+2. **Read with the cheapest model that works.** Text, floor plans, charts and photos go to the
+   model the routing assigns per task (`backend/app/ingestion/routing.py`) — by default a cheap
+   one, because the eval showed it's enough.
 3. **Check every reading.** Too few chart points, rooms that don't add up to the stated area,
-   a photo with no prices → one retry on a model from another provider.
+   a photo with no prices → one retry on a stronger model.
 4. **Merge into apartments.** Documents are matched by printed title; native text beats vision;
    price per m² is always computed; a room labeled *office* becomes a "2 or 3 bedrooms?" conflict.
 5. **Talk.** Text or voice, the assistant only states facts that come from tools over the merged
@@ -57,18 +58,35 @@ Details: [`docs/architecture.md`](docs/architecture.md) · flows: [ingestion](do
 
 ![Documents disagree: the brochure states USD 5,900/m², price ÷ area says 6,622](docs/images/price-conflict.png)
 
-## Evals
+## Evals: I designed for hard cases, then measured
+
+The routing started **cautious**: strong vision models for floor plans, charts and photos. Before
+keeping it, I measured it against the alternatives on the dataset's ground truth (OpenAI models,
+one full ingestion per setup):
+
+| Setup | Accuracy | Cost per run | vs. cheap-first |
+|---|---|---|---|
+| **cheap-first** (default): `gpt-6-luna` everywhere, `gpt-6.1-sol` only to retry failed readings | **100%** | **$0.0049** | — |
+| cautious: `gpt-6.1-sol` for floor plans, charts and photos | 100% | $0.0381 | 7.8× more |
+| single model: `gpt-6.1-sol` for everything | 100% | $0.0846 | 17× more |
+
+**The cheap model read everything correctly — including the floor plans, the unlabeled chart and
+the tilted phone photo — so the default is now cheap-first.** The strong model stays as a safety
+net: verification catches implausible readings (too few chart points, rooms that don't add up)
+and retries them once on a stronger model, so you only pay for it when a reading looks wrong.
+
+**The honest caveat:** 4 synthetic listings is a small test set, and a benchmark where every setup
+scores 100% can't rank models any further. With messier real documents I'd expect the hard cases
+to separate models again — the routing is one config change (`backend/app/ingestion/routing.py`),
+re-validated by the same eval:
 
 ```bash
-backend/.venv/Scripts/python -m evals.run     # routed setup vs. 6 single-model baselines
+backend/.venv/Scripts/python -m evals.run     # both strategies + single-model baselines
 ```
 
-Scores each fact against ground truth, grouped by where it had to be read from (brochure text,
-phone photo, floor plan, chart, conflicts), with cost, calls, escalations and time per setup, and
-suggests a model per task. See [`evals/README.md`](evals/README.md).
-
-> **Results: pending.** The table will be published here from the first run with real models
-> (`evals/results/openrouter-latest.md`). Offline runs only test the harness.
+Scores are per source type (brochure text, phone photo, floor plan, chart, conflicts). Full
+results: [`evals/results/openai-latest.md`](evals/results/openai-latest.md) ·
+method: [`evals/README.md`](evals/README.md).
 
 ## Run it
 
@@ -113,6 +131,8 @@ React 19 · Vite · Tailwind · shadcn/ui · assistant-ui.
 
 - The dataset is synthetic (4 listings): great for exact scoring, small for ranking close models.
 - Confidence values are heuristics, not calibrated probabilities.
+- Model readings vary between runs (e.g. one run missed the "gourmet balcony" label on a floor
+  plan that other runs read); the eval runs each setup once.
 - Floor-plan evidence highlights the whole image (vision readings don't return coordinates yet).
 - Single-process demo: ingestion runs are in-process background tasks.
 

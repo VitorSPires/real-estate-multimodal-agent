@@ -26,9 +26,9 @@ useLiveSession ── POST /api/live/session ───▶ live/session.py ──
 |---|---|---|
 | `classify` | PDF with text layer / scanned PDF / image | — |
 | `parse_pdf` ∥ `prepare_image` | text layer, embedded image crops, page renders; image copies | — |
-| `extract_text` | brochure text → `TextExtraction` (values + quotes) | `routing.text` (cheap) |
-| `triage_images` | image kind: floor plan / chart / document photo / property photo | `routing.triage` (cheap) |
-| `extract_visual` | floor plan → rooms + amenities; chart → series; photo → facts | per kind (strong) |
+| `extract_text` | brochure text → `TextExtraction` (values + quotes) | `routing.text` |
+| `triage_images` | image kind: floor plan / chart / document photo / property photo | `routing.triage` |
+| `extract_visual` | floor plan → rooms + amenities; chart → series; photo → facts | per kind |
 | `verify` | completeness + plausibility per reading (`verify.py`) | — |
 | `escalate` | re-read readings with problems, once | `routing.escalation` (other provider) |
 | `merge` | group by title, choose values, record conflicts (`merge.py`) | — |
@@ -53,14 +53,16 @@ One method: `complete_json(model, system, user_text, schema, images, call_key)`.
 `OpenAICompatibleClient` serves OpenRouter and OpenAI (Chat Completions + `json_schema` response
 format; OpenRouter reports exact cost, otherwise a price table estimates it). `FakeLLMClient`
 answers from `ingestion/fakes/dataset_responses.json` (offline mode, tests). `Routing` maps each
-task to a model; `LLM_PROVIDER=auto` picks OpenRouter → OpenAI → offline.
+task to a model, with two presets: **cheap-first** (default — cheap model everywhere, strong model
+for escalation) and **cautious** (strong models on visual tasks); the eval compares them.
+`LLM_PROVIDER=auto` picks OpenRouter → OpenAI → offline.
 
 ## Conversation (`assistant/`)
 
 Six deterministic tools over the stored listings: `list_listings`, `filter_listings`,
 `get_listing`, `compare_listings`, `neighborhood_price_check`, `show_evidence`. They are exposed in
-two formats: Chat Completions (text chat loop, max 5 rounds) and Responses-API function tools
-(GPT-Live delegation). Shared instructions in `instructions.py`. Offline, `offline.py` plays the
+two formats: Responses-API function tools (text chat on OpenAI and the GPT-Live delegation) and
+Chat Completions (text chat via OpenRouter). The chat loop runs at most 5 tool rounds. Shared instructions in `instructions.py`. Offline, `offline.py` plays the
 model with simple rules.
 
 ## Voice (`live/`, `features/voice/`)

@@ -5,6 +5,29 @@
 
 ---
 
+## [010] Cheap-first routing and a faster chat, decided by measurements
+
+**What was done:**
+- `routing.py`: two named strategies — **cheap-first** (default: cheap model everywhere, strong
+  model only to retry failed readings) and **cautious** (strong models on visual tasks). The eval
+  compares both plus single-model baselines.
+- Real eval (OpenAI): all setups 100%; cheap-first $0.0049/run vs cautious $0.0381 vs strong-only
+  $0.0846. README now tells this story with the table and the caveat (decision [016]).
+- Text chat on OpenAI moved to the **Responses API** (gpt-6 models only accept tools there) and
+  defaults to `gpt-6-luna`: 4–6 s per answer instead of 8–15 s (decision [017]). First real chat run:
+  accumulates requirements, flags the office conflict, opens the BBQ evidence, checks the price.
+- `aria-busy` on the chat area while an answer is pending (accessibility + a signal for UI automation).
+- README screenshots retaken with real models (no "Offline mode" badge).
+
+**Why:** Make the code match the story: design for hard cases, measure, simplify.
+
+**New concepts introduced:** benchmark saturation; Responses API vs. Chat Completions.
+- *Gotcha:* while debugging the screenshot script, a "second message won't send" turned out to be
+  the script typing before the first (slow) answer finished — not an app bug. The thread correctly
+  refuses to send while an answer is running.
+
+---
+
 ## [009] First real-model run (OpenAI) and the fixes it needed
 
 **What was done:**

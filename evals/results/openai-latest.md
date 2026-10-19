@@ -1,12 +1,13 @@
 # Eval results (openai)
 
-> 3 setups × full dataset. Accuracy = share of facts correct.
+> 4 setups × full dataset. Accuracy = share of facts correct.
 
 | Setup | Accuracy | amenity_from_floorplan | amenity_from_text | brochure_text | chart | conflict | fees | fees_from_photo | Cost (USD) | Calls | Escalations | Time (s) |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| `single:openai/gpt-6-luna` | **100%** | 100% | 100% | 100% | 100% | 100% | 100% | 100% | 0.0050 | 20 | 0 | 30.8 |
-| `routed` | **100%** | 100% | 100% | 100% | 100% | 100% | 100% | 100% | 0.0375 | 20 | 0 | 20.5 |
-| `single:openai/gpt-6.1-sol` | **100%** | 100% | 100% | 100% | 100% | 100% | 100% | 100% | 0.0858 | 20 | 0 | 14.4 |
+| `cheap-first (default)` | **100%** | 100% | 100% | 100% | 100% | 100% | 100% | 100% | 0.0049 | 20 | 0 | 14.9 |
+| `single:openai/gpt-6-luna` | **100%** | 100% | 100% | 100% | 100% | 100% | 100% | 100% | 0.0050 | 20 | 0 | 14.0 |
+| `cautious` | **100%** | 100% | 100% | 100% | 100% | 100% | 100% | 100% | 0.0381 | 20 | 0 | 16.3 |
+| `single:openai/gpt-6.1-sol` | **100%** | 100% | 100% | 100% | 100% | 100% | 100% | 100% | 0.0846 | 20 | 0 | 15.8 |
 
 ## Suggested routing (best accuracy per task, cheapest on ties)
 
@@ -17,7 +18,11 @@
 
 ## Failures
 
-**routed**
+**cheap-first (default)**
+
+- none
+
+**cautious**
 
 - none
 

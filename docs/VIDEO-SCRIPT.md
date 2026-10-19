@@ -24,7 +24,7 @@ Record in English. Have the text-only fallback ready (type the same lines) if vo
 | 3 | 0:15–0:45 | Narration streaming | Point at: "native text layer read for free", "floor plan → vision model", "property photo skipped", a retry with a stronger model if one happens, and the ⚠ conflicts at the end. Mention the cost line. |
 | 4 | 0:45 | Cards | Click **Harbor View**'s amber "2 bd" → the viewer shows the brochure line "Bedrooms 2" and the conflict note; click the floor-plan tab to show the room labeled OFFICE. "The documents disagree, so it keeps both." Close. |
 | 5 | 0:55–1:45 | Click **Talk** | "Hi! I got some apartment documents from a broker — can you help me pick one?" → "I need at least two bedrooms." → "And I really want a barbecue grill." (the floor plan with the BBQ opens by itself) → "Is it a good price for the area?" |
-| 6 | 1:45 | README eval table | "Every model choice is backed by this eval: accuracy per document type and cost per run." End on the repo URL. |
+| 6 | 1:45 | README eval table | "I designed for hard cases, then measured: the cheap model got 100% too, so it's the default now — 7.8× cheaper, with a strong model only as a retry." End on the repo URL. |
 
 ## Lines to have ready (interview follow-ups)
 
@@ -33,6 +33,9 @@ Record in English. Have the text-only fallback ready (type the same lines) if vo
   on a vision call. (DECISIONS [002])
 - *How do you know it's right?* Synthetic dataset with exact ground truth and designed traps;
   evals per source type. (DECISIONS [005], [010])
-- *Cost?* Text layer is free; cheap triage; strong models only where needed; per-call cost logged.
+- *Cost?* Text layer is free; I designed a cautious routing (strong models on images), then the
+  eval showed the cheap model gets 100% too — so cheap-first is the default, 7.8× cheaper, with a
+  strong model only retrying readings that fail verification. Caveat: small synthetic test set;
+  with harder documents I'd re-run the same eval. (DECISIONS [016])
 - *What would you do for production?* Sideband connection for voice tools, a job queue instead of
   in-process tasks, calibrated confidence, real-document eval split.

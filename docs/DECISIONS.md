@@ -52,6 +52,38 @@ data (Phase 3), not by preference.
 
 ---
 
+## [017] Text chat: Responses API on OpenAI, cheap model by default
+
+**Context:** gpt-6 models reject function tools in Chat Completions while reasoning is on, and
+`reasoning_effort="none"` isn't accepted either. The first chat model (`gpt-6.1-sol`) also took
+8–15 s per answer — too slow for a conversation (and for the video).
+
+**Choice:** On OpenAI the chat loop uses the **Responses API** (same tool format as the voice
+session's delegation); on OpenRouter it keeps Chat Completions. Default chat model:
+`gpt-6-luna` (OpenAI) / `claude-haiku-5.5` (OpenRouter).
+
+**Why:** Measured on the demo conversation, `gpt-6-luna` picks the same tools and answers
+correctly in 4–6 s. Text and voice now share one tool definition format.
+
+---
+
+## [016] Cheap-first routing, chosen by eval (supersedes the cautious default of [007])
+
+**Context:** The original routing put strong models on floor plans, charts and photos "to be safe".
+
+**Options considered (measured, OpenAI, full dataset):**
+- **cautious** — `gpt-6.1-sol` on visual tasks: 100%, $0.0381/run.
+- **single strong model** — `gpt-6.1-sol` everywhere: 100%, $0.0846/run.
+- **cheap-first** — `gpt-6-luna` everywhere, `gpt-6.1-sol` only for escalation: 100%, $0.0049/run.
+
+**Choice:** cheap-first is the default; the cautious preset is kept so the eval keeps comparing both.
+
+**Why:** Same accuracy at 1/7.8 of the cost. Verification + one escalation is the safety net for
+the readings that do go wrong. **Limitation:** the dataset saturates (every setup at 100%); with
+harder real documents the comparison must be re-run, and the routing may move back per task.
+
+---
+
 ## [015] backend/.env wins over OS environment variables; tests disable it
 
 **Context:** On the first real run, a stale `OPENAI_API_KEY` set globally in Windows silently

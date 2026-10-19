@@ -112,7 +112,7 @@ export function useAssistantThread({ runs, listings, onStep }: Options) {
       : [],
   })
 
-  return { runtime, addRun, addVoiceTranscript, addVoiceStep }
+  return { runtime, isSending, addRun, addVoiceTranscript, addVoiceStep }
 }
 
 function toMessage(entry: TimelineEntry, runs: IngestionRun[], listings: ListingRecord[]): ThreadMessageLike | null {
