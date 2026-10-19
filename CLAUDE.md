@@ -58,7 +58,7 @@ app/
 - **Facts come from tools:** the voice model never states a listing fact that didn't come from a tool result.
 - **LangGraph lives in ingestion**, not in the live conversation (see `docs/DECISIONS.md`).
 - **Company-agnostic:** no employer or prospect names anywhere in the repo.
-- **Clean-room voice code:** the private PoC in `open-source/_temp/` is a protocol reference only — never copy from it.
+- **Clean-room voice code:** the voice layer was written from the public GPT-Live protocol; a private PoC was only consulted as a protocol reference (never copied) and is not part of this repo.
 
 ---
 

@@ -15,7 +15,7 @@
   1. First real **voice** call (needs your microphone): `_run\win.bat` → http://localhost:5173 in
      Chrome → *Try sample documents* → **Talk**.
   2. Record the video with `docs/VIDEO-SCRIPT.md`.
-  3. Delete `open-source/_temp/` and `open-source/open-source.sln`, create the GitHub repo, push.
+  3. ~~Delete `open-source/_temp/` and `open-source/open-source.sln`~~ (done 2026-10-19), create the GitHub repo, push.
   4. Optional: remove the stale `OPENAI_API_KEY` from the Windows user environment.
 
 > The sections below are the decision log from the autonomous build (2026-10-14), kept as written.

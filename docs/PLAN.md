@@ -342,9 +342,8 @@ showable (CLI + eval table).
 
 ## 10. Rules
 
-- **Clean-room voice code.** The private PoC under `open-source/_temp/` is a protocol reference
-  only. Do not copy files, prompts, names, IDs or domain terms from it. Delete `_temp/` (or keep it
-  outside this repo) before the first push.
+- **Clean-room voice code.** A private PoC was consulted as a protocol reference only; no files,
+  prompts, names, IDs or domain terms were copied, and it is not part of this repo.
 - **No secrets in git.** `.env` ignored from commit #1; `.env.example` only.
 - **English everywhere** — code, comments, UI, prompts, README, commits.
 - **Company-agnostic.** No employer or prospect names anywhere in the repo.
